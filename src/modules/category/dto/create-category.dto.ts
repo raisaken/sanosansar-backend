@@ -12,4 +12,7 @@ export class CreateCategoryDto {
 
   @ApiProperty({ type: Number })
   score?: number;
+
+  @ApiProperty({ type: Number })
+  parent?: number
 }

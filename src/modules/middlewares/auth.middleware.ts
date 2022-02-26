@@ -2,6 +2,9 @@ import {
     Injectable,
     Logger,
     NestMiddleware,
+    Next,
+    Req,
+    Res,
     UnauthorizedException,
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
@@ -10,14 +13,12 @@ import * as jwt from 'jsonwebtoken';
 export class AuthMiddleware implements NestMiddleware {
     private logger = new Logger();
 
-    async use(req: any, res: any, next: () => void) {
+    async use(@Req() req, @Res() res, @Next() next) {
         try {
             const tokenPrefix = 'Bearer ';
             const { authorization } = req.headers;
             if (authorization) {
-                console.log({authorization})
                 const token = authorization.replace(tokenPrefix, '');
-                console.log({authorization, token})
 
                 const decodedInfo = await jwt.verify(token, process.env['JWT_SECRET']);
                 this.logger.log(`claim confirmed from ${decodedInfo.user.email}`)
