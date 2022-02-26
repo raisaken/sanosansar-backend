@@ -6,4 +6,10 @@ export class CreateCategoryDto {
 
   @ApiProperty({ type: String })
   description: string;
+
+  @ApiProperty({ type: String })
+  time?: string;
+
+  @ApiProperty({ type: Number })
+  score?: number;
 }

@@ -5,8 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { configService } from './config/config.service';
 import { CategoryModule } from './modules/category/category.module';
+import { AuthMiddleware } from './modules/middlewares/auth.middleware';
 import { LoggerMiddleware } from './modules/middlewares/logger.middleware';
 import { QuestionModule } from './modules/question/question.module';
+import { QuizModule } from './modules/quiz/quiz.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -14,6 +17,8 @@ import { QuestionModule } from './modules/question/question.module';
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     CategoryModule,
     QuestionModule,
+    QuizModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -22,6 +27,10 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+      consumer
+      .apply(AuthMiddleware)
+      .exclude({ path: 'api/v1/auth/(.*)', method: RequestMethod.POST })
       .forRoutes({ path: '*', method: RequestMethod.ALL });
    
   }

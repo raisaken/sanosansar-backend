@@ -10,12 +10,20 @@ export class Category {
     id: number;
 
     @ApiProperty()
-    @Column({ type: 'varchar', length: 300, nullable: false })
+    @Column({ type: 'varchar', length: 50, nullable: true })
     name: string;
 
     @ApiProperty()
     @Column({ type: 'varchar', length: 300, nullable: true })
     description: string;
+
+    @ApiProperty()
+    @Column({ type: 'varchar', length: 30, nullable: true })
+    time: string;
+
+    @ApiProperty()
+    @Column({ type: 'int', nullable: true })
+    score: number;
 
     @ApiProperty()
     @TreeChildren()

@@ -27,8 +27,11 @@ export class CategoryService {
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
     const category = await this._categoryRepository.findOneOrFail(id);
-    category.name = updateCategoryDto.name;
-    category.description = updateCategoryDto.description;
+    category.name = updateCategoryDto.name || category.name;
+    category.time = updateCategoryDto.time || category.time;
+    category.score = updateCategoryDto.score || category.score;
+
+    category.description = updateCategoryDto.description || category.description;
     await this._categoryRepository.save(category);
     return category;
   }
