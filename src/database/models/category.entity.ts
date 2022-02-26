@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, Tree, PrimaryColumn, TreeParent, TreeChildren, JoinColumn } from 'typeorm';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, Tree, PrimaryColumn, TreeParent, TreeChildren, JoinColumn, OneToMany } from 'typeorm';
+import { Question } from './question.entity';
 
 @Entity({ name: 'category' })
 @Tree('materialized-path')
@@ -47,4 +48,7 @@ export class Category {
     @ApiProperty()
     @Column({ name: 'updated_by', type: 'varchar', length: 300, nullable: true })
     updatedBy: string;
+
+    @OneToMany(() => Question, question => question.category)
+    questions?: Question[];
 }

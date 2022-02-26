@@ -1,0 +1,18 @@
+import { PartialType } from '@nestjs/mapped-types';
+import { Category } from 'src/database/models/category.entity';
+import { QuestionOption } from 'src/database/models/question-option.entity';
+
+export class QuestionInput {
+    title: string;
+    category?: Category;
+    options?: QuestionOption[];
+}
+
+export class QuestionOptionInput {
+    title: string;
+    description?: string;
+    isCorrect: boolean;
+}
+
+export class UpdateQuestionInput extends PartialType(QuestionInput) { }
+export class UpdateQuestionOptionInput extends PartialType(QuestionOptionInput) { }

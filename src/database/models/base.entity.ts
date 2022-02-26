@@ -1,8 +1,8 @@
-import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, PrimaryColumn } from 'typeorm';
 
 export abstract class BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryColumn({ generated: true })
+    id: number;
 
     @Column({ name: 'is_active', type: 'boolean', default: true })
     isActive: boolean;
