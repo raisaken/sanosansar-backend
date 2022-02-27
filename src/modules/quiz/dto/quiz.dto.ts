@@ -1,12 +1,23 @@
-import { PartialType } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateQuizDto {
-    title: string;
-    description: string;
-    isRegistrationOpen?: boolean;
-    quizDate?: string; 
-    startingDtm?: Date;
-    endingDtm?: Date;
+  @ApiProperty({ type: String })
+  title: string;
+
+  @ApiProperty({ type: String })
+  description: string;
+
+  @ApiProperty({ type: Boolean })
+  isRegistrationOpen?: boolean;
+
+  @ApiProperty({ type: String })
+  quizDate?: string;
+
+  @ApiProperty({ type: Date })
+  startingDtm?: Date;
+
+  @ApiProperty({ type: Date })
+  endingDtm?: Date;
 }
 
 export class UpdateQuizDto extends PartialType(CreateQuizDto) {}
