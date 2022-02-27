@@ -47,6 +47,9 @@ class ConfigService {
         subscribersDir: 'src/database/subscribers',
       },
       ssl: this.isProduction(),
+      extra: {
+        ssl:  this.isProduction() ? { rejectUnauthorized: false } : null,
+      }
     };
   }
 
