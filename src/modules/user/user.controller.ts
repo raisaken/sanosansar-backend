@@ -10,12 +10,13 @@ import {
 } from '@nestjs/common';
 import { UserService } from './services/user.service';
 import { UserInput } from './dto/user.input';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 
 @ApiTags('user')
 @Controller('user')
+@ApiBearerAuth('authorization')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -53,7 +54,7 @@ export class UserController {
   }
 
   @Get('detail')
-  findUserDetail(@Req() req, @Param('id') id: string) {
+  findUserDetail(@Req() req) {
     const { user } = req?.auth;
     return this.userService.findOne(user.id);
   }
