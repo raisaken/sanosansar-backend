@@ -30,10 +30,12 @@ export class CategoryController {
       time,
       score,
       createdBy: user.id,
-      updatedBy: user.id
-    }
-    if(parent){
-      categoryInput.parent = await this.categoryService.findOne(createCategoryDto.parent);
+      updatedBy: user.id,
+    };
+    if (parent) {
+      categoryInput.parent = await this.categoryService.findOne(
+        createCategoryDto.parent,
+      );
     }
     return this.categoryService.create(categoryInput);
   }

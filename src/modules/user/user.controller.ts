@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './services/user.service';
 import { UserInput } from './dto/user.input';
@@ -16,12 +17,21 @@ import * as bcrypt from 'bcrypt';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService,
-  ) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const { firstName, middleName, lastName, gender, email, role, password, phoneNumber, dateOfBirth } = createUserDto
+    const {
+      firstName,
+      middleName,
+      lastName,
+      gender,
+      email,
+      role,
+      password,
+      phoneNumber,
+      dateOfBirth,
+    } = createUserDto;
 
     const user: UserInput = {
       firstName,
@@ -33,7 +43,7 @@ export class UserController {
       role,
       password: await bcrypt.hash(password, 8),
       dateOfBirth,
-    }
+    };
     return this.userService.create(user);
   }
 
@@ -47,11 +57,14 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
+  @Get('/detail')
+  findUserDetail(@Req() req) {
+    const { user } = req?.auth;
+    return this.userService.findOne(user.id);
+  }
+
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ) {
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 8);
     }

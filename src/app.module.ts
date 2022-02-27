@@ -28,10 +28,9 @@ export class AppModule {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
-      consumer
+    consumer
       .apply(AuthMiddleware)
       .exclude({ path: 'api/v1/auth/(.*)', method: RequestMethod.POST })
       .forRoutes({ path: '*', method: RequestMethod.ALL });
-   
   }
 }

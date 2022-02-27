@@ -15,12 +15,15 @@ async function bootstrap() {
   app.setGlobalPrefix(`${prefix}/${version}`);
 
   if (swaggerEnvs.includes(process.env.NODE_ENV)) {
-    app.use(['/api/docs', '/api/docs-json'], basicAuth({
-      challenge: true,
-      users: {
-        [process.env.SWAGGER_USER]: process.env.SWAGGER_PASSWORD,
-      },
-    }));
+    app.use(
+      ['/api/docs', '/api/docs-json'],
+      basicAuth({
+        challenge: true,
+        users: {
+          [process.env.SWAGGER_USER]: process.env.SWAGGER_PASSWORD,
+        },
+      }),
+    );
 
     const options = new DocumentBuilder()
       .setTitle(process.env.API_DOCS_TITLE)
@@ -35,7 +38,7 @@ async function bootstrap() {
           description: 'Enter JWT access token',
           in: 'header',
         },
-        'authorization'
+        'authorization',
       )
       .build();
     const document = SwaggerModule.createDocument(app, options);
@@ -47,6 +50,5 @@ async function bootstrap() {
   }
   await app.listen(port);
   Logger.log(`Applicationn started on port: ${port}`);
-
 }
 bootstrap();
