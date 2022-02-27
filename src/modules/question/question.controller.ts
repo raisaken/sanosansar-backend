@@ -8,7 +8,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateQuestionDto,
   CreateQuestionOptionDto,
@@ -19,6 +19,7 @@ import { QuestionInput, UpdateQuestionInput } from './dto/question.input';
 
 @ApiTags('question')
 @Controller('question')
+@ApiBearerAuth('authorization')
 export class QuestionController {
   constructor(
     private readonly questionService: QuestionService,

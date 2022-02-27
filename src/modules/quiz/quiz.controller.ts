@@ -7,12 +7,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateQuizDto, UpdateQuizDto } from './dto/quiz.dto';
 import { QuizService } from './services/quiz.service';
 
 @Controller('quiz')
 @ApiTags('quiz')
+@ApiBearerAuth('authorization')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
