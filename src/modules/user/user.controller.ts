@@ -52,15 +52,15 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
-
-  @Get('/detail')
-  findUserDetail(@Req() req) {
+  @Get('detail')
+  findUserDetail(@Req() req, @Param('id') id: string) {
     const { user } = req?.auth;
     return this.userService.findOne(user.id);
+  }
+
+  @Get(':id([0-9]+)')
+  findOne(@Param('id') id: string) {
+    return this.userService.findOne(+id);
   }
 
   @Patch(':id')
