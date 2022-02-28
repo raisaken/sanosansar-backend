@@ -10,6 +10,7 @@ import { LoggerMiddleware } from './modules/middlewares/logger.middleware';
 import { QuestionModule } from './modules/question/question.module';
 import { QuizModule } from './modules/quiz/quiz.module';
 import { UserModule } from './modules/user/user.module';
+import { EventModule } from './modules/event/event.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './modules/user/user.module';
     QuestionModule,
     QuizModule,
     UserModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],
