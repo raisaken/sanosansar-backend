@@ -29,4 +29,16 @@ export class CreateUserDto {
   dateOfBirth?: string;
 }
 
+export class CreateQuestionOptionDto {
+  @ApiProperty({ type: String })
+  title: string;
+
+  @ApiProperty({ type: String })
+  description: string;
+
+  @ApiProperty({ type: Boolean })
+  isCorrect: boolean;
+}
+
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateQuestionOptionDto extends PartialType(CreateQuestionOptionDto) {}

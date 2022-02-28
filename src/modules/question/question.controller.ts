@@ -48,6 +48,11 @@ export class QuestionController {
     }
   }
 
+  @Post('option/:id')
+  async addOption(@Body() createQuestionOptionDto: CreateQuestionOptionDto, @Param('id') id: string) {
+    return this.questionService.addOption(id, createQuestionOptionDto);
+  }
+
   @Get()
   findAll() {
     return this.questionService.findAll();

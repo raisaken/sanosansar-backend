@@ -11,11 +11,6 @@ export class QuizService {
         this._quizRepository = this._connection.getRepository(Quiz);
     }
 
-    async createOption(input: any) {
-        const res = await this._quizRepository.save(input);
-        return res;
-    }
-
     async create(input: QuizInput) {
         const res = await this._quizRepository.save(input);
         return res;

@@ -20,6 +20,16 @@ export class QuestionService {
         return res;
     }
 
+    async addOption(id, input: any) {
+        const question = await this.findOne(+id);
+        if (question) {
+        return await this.createOption({
+                question,
+                ...input
+            });
+        }
+    }
+
     async create(input: QuestionInput) {
         const res = await this._questionRepository.save(input);
         return res;
