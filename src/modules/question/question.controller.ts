@@ -58,8 +58,9 @@ export class QuestionController {
   @Post('answer/:questionid')
   async submitAnswer(@Req() req, @Body() submitAnswerDto: SubmitAnswerDto, @Param('questionid') questionid: string) {
     const { user } = req?.auth;
-    const { optionId, timeSpent } = submitAnswerDto;
+    const { optionId, timeSpent, quizId } = submitAnswerDto;
     const answerInput: SubmitAnswerInput = {
+      quiz: quizId,
       option: optionId,
       user: user.id,
       question: +questionid,

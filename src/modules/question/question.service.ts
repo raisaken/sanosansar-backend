@@ -25,13 +25,13 @@ export class QuestionService {
     }
 
     async saveAnswer(id, input: SubmitAnswerInput) {
-        // const question = await this.findOne(+id);
-        // if (question) {
+        const question: Question = await this.findOne(+id);
+        if (question) {
         return await this._questionAnswerRepository.save({
-                question: id,
-                ...input
+            ...input,
+            question,
             });
-        // }
+        }
     }
 
     async addOption(id, input: any) {

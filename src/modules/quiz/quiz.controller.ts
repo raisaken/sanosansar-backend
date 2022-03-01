@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateQuizDto, UpdateQuizDto } from './dto/quiz.dto';
@@ -36,6 +37,13 @@ export class QuizController {
   findOne(@Param('id') id: string) {
     return this.quizService.findOne(+id);
   }
+
+  @Get('score/:quizid')
+  quizScore(@Req() req, @Param('quizid') quizid: string) {
+    const { user } = req?.auth;
+    return this.quizService.findQuizScore(+quizid, user.id);
+  }
+  
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {

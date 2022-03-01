@@ -27,6 +27,9 @@ export class SubmitAnswerDto {
   @ApiProperty({ type: String })
   timeSpent?: number;
 
+   @ApiProperty({ type: Number })
+  quizId?: number;
+
   // @ApiProperty({ type: Number })
   // userId?: number;
 

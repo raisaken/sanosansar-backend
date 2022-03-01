@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { QuizCompetition } from 'src/database/models/quiz.competition.entity';
 import { Quiz } from 'src/database/models/quiz.entity';
 import { Connection, Repository } from 'typeorm';
 import { QuizInput, UpdateQuizInput } from '../dto/quiz.input';
@@ -6,9 +7,11 @@ import { QuizInput, UpdateQuizInput } from '../dto/quiz.input';
 @Injectable()
 export class QuizService {
     private _quizRepository: Repository<Quiz>;
+    private _questionCompetitionRepository: Repository<QuizCompetition>;
 
     constructor(private _connection: Connection) {
         this._quizRepository = this._connection.getRepository(Quiz);
+        this._questionCompetitionRepository = this._connection.getRepository(QuizCompetition);
     }
 
     async create(input: QuizInput) {
@@ -26,6 +29,33 @@ export class QuizService {
                 id
             },
         });
+    }
+
+    async findQuizScore(quizId: number, userId: number) {
+        const compInfo = await this._questionCompetitionRepository
+            .createQueryBuilder('competition')
+            .leftJoinAndSelect('competition.question', 'question')
+            .leftJoinAndSelect('question.category', 'category')
+            .leftJoinAndSelect('question.options', 'options')
+            .addSelect('options.isCorrect')
+            .where({
+                quiz: quizId,
+                user: userId
+            })
+            .getMany();
+
+        const totalTimeSpent = compInfo.reduce((previousValue, currentValue) => previousValue + currentValue.timeSpent, 0);
+        const correctAnswers = compInfo.filter((answer) => answer.option && answer.question.options.find((opt) => opt.id === answer.option && opt.isCorrect));
+        const totalScore = correctAnswers.reduce((previousValue, currentValue) => previousValue + currentValue.question.category.score, 0);
+        const wrongAnswers = compInfo.filter((answer) => answer.option && answer.question.options.find((opt) => opt.id !== answer.option && !opt.isCorrect));
+
+        return {
+            totalTimeSpent,
+            totalScore,
+            totalCorrectAnswers: correctAnswers.length,
+            totalWrongAnswers: wrongAnswers.length,
+        };
+
     }
 
     async update(id: number, updatedQuiz: UpdateQuizInput) {

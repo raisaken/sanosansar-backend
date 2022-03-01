@@ -25,6 +25,6 @@ export class Question extends BaseEntity {
     // @JoinTable({ name: 'quiz_question' })
     // quizes: Quiz[];
 
-    // @OneToMany(() => QuizCompetition, quizCompetition => quizCompetition.question)
-    // competitions?: QuizCompetition[];
+    @OneToMany(() => QuizCompetition, quizCompetition => quizCompetition.question)
+    competitions?: QuizCompetition[];
 }
