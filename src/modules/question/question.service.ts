@@ -3,21 +3,35 @@ import { Injectable } from '@nestjs/common';
 import { QuestionOption } from 'src/database/models/question-option.entity';
 import { Question } from 'src/database/models/question.entity';
 import { Connection, Repository } from 'typeorm';
-import { QuestionInput, UpdateQuestionInput, UpdateQuestionOptionInput } from './dto/question.input';
+import { QuestionInput, SubmitAnswerInput, UpdateQuestionInput, UpdateQuestionOptionInput } from './dto/question.input';
+import { QuizCompetition } from 'src/database/models/quiz.competition.entity';
 
 @Injectable()
 export class QuestionService {
     private _questionRepository: Repository<Question>;
     private _questionOptionRepository: Repository<QuestionOption>;
+    private _questionAnswerRepository: Repository<QuizCompetition>;
+
 
     constructor(private _connection: Connection) {
         this._questionRepository = this._connection.getRepository(Question);
         this._questionOptionRepository = this._connection.getRepository(QuestionOption);
+        this._questionAnswerRepository = this._connection.getRepository(QuizCompetition);
     }
 
     async createOption(input: any) {
         const res = await this._questionOptionRepository.save(input);
         return res;
+    }
+
+    async saveAnswer(id, input: SubmitAnswerInput) {
+        // const question = await this.findOne(+id);
+        // if (question) {
+        return await this._questionAnswerRepository.save({
+                question: id,
+                ...input
+            });
+        // }
     }
 
     async addOption(id, input: any) {

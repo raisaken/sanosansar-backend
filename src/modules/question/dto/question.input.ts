@@ -14,5 +14,13 @@ export class QuestionOptionInput {
     isCorrect: boolean;
 }
 
+export class SubmitAnswerInput {
+    user: number;
+    option: number;
+    question: number;
+    timeSpent?: number;
+  }
+
 export class UpdateQuestionInput extends PartialType(QuestionInput) { }
+export class UpdateAnswerInput extends PartialType(SubmitAnswerInput) {}
 export class UpdateQuestionOptionInput extends PartialType(QuestionOptionInput) { }

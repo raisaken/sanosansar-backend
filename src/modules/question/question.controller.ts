@@ -7,15 +7,17 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateQuestionDto,
   CreateQuestionOptionDto,
+  SubmitAnswerDto,
   UpdateQuestionDto,
 } from './dto/question.dto';
 import { CategoryService } from '../category/category.service';
-import { QuestionInput, UpdateQuestionInput } from './dto/question.input';
+import { QuestionInput, SubmitAnswerInput, UpdateQuestionInput } from './dto/question.input';
 
 @ApiTags('question')
 @Controller('question')
@@ -51,6 +53,19 @@ export class QuestionController {
   @Post('option/:id')
   async addOption(@Body() createQuestionOptionDto: CreateQuestionOptionDto, @Param('id') id: string) {
     return this.questionService.addOption(id, createQuestionOptionDto);
+  }
+
+  @Post('answer/:questionid')
+  async submitAnswer(@Req() req, @Body() submitAnswerDto: SubmitAnswerDto, @Param('questionid') questionid: string) {
+    const { user } = req?.auth;
+    const { optionId, timeSpent } = submitAnswerDto;
+    const answerInput: SubmitAnswerInput = {
+      option: optionId,
+      user: user.id,
+      question: +questionid,
+      timeSpent
+    };
+    return this.questionService.saveAnswer(questionid, answerInput);
   }
 
   @Get()

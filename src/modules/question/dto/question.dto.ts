@@ -23,6 +23,21 @@ export class CreateQuestionDto {
   options?: CreateQuestionOptionDto[];
 }
 
+export class SubmitAnswerDto {
+  @ApiProperty({ type: String })
+  timeSpent?: number;
+
+  // @ApiProperty({ type: Number })
+  // userId?: number;
+
+  // @ApiProperty({ type: Number })
+  // questionId?: number;
+
+  @ApiProperty({ type: Number })
+  optionId: number;
+}
+
+export class UpdateAnswerDto extends PartialType(SubmitAnswerDto) {}
 export class UpdateQuestionDto extends PartialType(CreateQuestionDto) {}
 export class UpdateQuestionOptionDto extends PartialType(
   CreateQuestionOptionDto,
