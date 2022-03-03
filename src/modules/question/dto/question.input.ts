@@ -18,7 +18,7 @@ export class SubmitAnswerInput {
     user: number;
     option: number;
     question: number;
-    quiz: number;
+    event: number;
     timeSpent?: number;
   }
 

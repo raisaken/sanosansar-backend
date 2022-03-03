@@ -8,7 +8,6 @@ import { CategoryModule } from './modules/category/category.module';
 import { AuthMiddleware } from './modules/middlewares/auth.middleware';
 import { LoggerMiddleware } from './modules/middlewares/logger.middleware';
 import { QuestionModule } from './modules/question/question.module';
-import { QuizModule } from './modules/quiz/quiz.module';
 import { UserModule } from './modules/user/user.module';
 import { EventModule } from './modules/event/event.module';
 
@@ -18,7 +17,6 @@ import { EventModule } from './modules/event/event.module';
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     CategoryModule,
     QuestionModule,
-    QuizModule,
     UserModule,
     EventModule,
   ],

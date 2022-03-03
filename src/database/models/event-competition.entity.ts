@@ -1,18 +1,17 @@
-import { Entity, Column, OneToOne, JoinColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { Question } from '.';
 import { BaseEntity } from './base.entity';
-import { QuizRegistration } from './quiz-registration.entity';
 
-@Entity({ name: 'quiz_competition' })
-export class QuizCompetition extends BaseEntity {
+@Entity({ name: 'event_competition' })
+export class EventCompetition extends BaseEntity {
     @Column({ name: 'time_spent', type: 'int', nullable: true })
     timeSpent: number;
 
     @Column({ name: 'user_id', type: 'int', nullable: true })
     user: number;
 
-    @Column({ name: 'quiz_id', type: 'int', nullable: true })
-    quiz: number;
+    @Column({ name: 'event_id', type: 'int', nullable: true })
+    event: number;
 
     // @Column({ name: 'question_id', type: 'int', nullable: true })
     // question: number;

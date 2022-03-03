@@ -1,10 +1,9 @@
 import { Entity, Column, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Question } from '.';
-import { QuizRegistration } from './quiz-registration.entity';
-import { Quiz } from './quiz.entity';
+import { Events } from './event.entity';
 
-@Entity({ name: 'quiz_question' })
-export class QuizQuestion {
+@Entity({ name: 'event_question' })
+export class EventQuestion {
     @PrimaryColumn({ generated: true })
     id: number;
 
@@ -12,9 +11,9 @@ export class QuizQuestion {
     @JoinColumn({ name: 'question_id' })
     question: Question;
 
-    @ManyToOne(() => Quiz, quiz => quiz.id)
-    @JoinColumn({ name: 'quiz_id' })
-    quiz: Quiz;
+    @ManyToOne(() => Events, event => event.id)
+    @JoinColumn({ name: 'event_id' })
+    event: Events;
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;

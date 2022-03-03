@@ -1,12 +1,10 @@
-import { Entity, Column, OneToOne, JoinColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { Category } from './category.entity';
-import { QuestionOption } from './question-option.entity';
-import { QuizCompetition } from './quiz.competition.entity';
-import { Quiz } from './quiz.entity';
+import { Events } from './event.entity';
+import { EventCompetition } from './event-competition.entity';
 
-@Entity({ name: 'quiz_registration' })
-export class QuizRegistration extends BaseEntity {
+@Entity({ name: 'event_registration' })
+export class EventRegistration extends BaseEntity {
     @Column({ name: 'first_name', type: 'varchar', length: 30, nullable: false })
     firstName: string;
 
@@ -31,10 +29,10 @@ export class QuizRegistration extends BaseEntity {
     @Column({ name: 'school_name', type: 'varchar', length: 100, nullable: true })
     schoolName: string;
 
-    @ManyToOne(() => Quiz, quiz => quiz.registrations)
-    @JoinColumn({ name: 'quiz_id' })
-    quiz: Quiz;  
+    @ManyToOne(() => Events, event => event.registrations)
+    @JoinColumn({ name: 'event_id' })
+    event: Events;  
 
-    // @OneToMany(() => QuizCompetition, quizCompetition => quizCompetition.quizRegistration)
-    // competitions?: QuizCompetition[];
+    // @OneToMany(() => EventCompetition, eventCompetition => eventCompetition.eventRegistration)
+    // competitions?: EventCompetition[];
 }

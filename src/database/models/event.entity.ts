@@ -1,5 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { EventQuestion } from './event-question.entity';
+import { EventRegistration } from './event-registration.entity';
 
 @Entity({ name: 'event' })
 export class Events extends BaseEntity {
@@ -25,5 +27,11 @@ export class Events extends BaseEntity {
     startingDtm: Date;
 
     @Column({ name: 'ending_dtm', type: 'timestamptz', nullable: true })
-    endingDtm: Date;   
+    endingDtm: Date;
+    
+    @OneToMany(() => EventRegistration, eventRegistration => eventRegistration.event)
+    registrations?: EventRegistration[];
+
+    @OneToMany(() => EventQuestion, eventQuestion => eventQuestion.event)
+    question: EventQuestion;
 }

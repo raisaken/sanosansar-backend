@@ -2,9 +2,8 @@ import { Entity, Column, OneToOne, JoinColumn, OneToMany, ManyToOne, ManyToMany,
 import { BaseEntity } from './base.entity';
 import { Category } from './category.entity';
 import { QuestionOption } from './question-option.entity';
-import { QuizQuestion } from './quiz-question.entity';
-import { QuizCompetition } from './quiz.competition.entity';
-import { Quiz } from './quiz.entity';
+import { EventQuestion } from './event-question.entity';
+import { EventCompetition } from './event-competition.entity';
 
 @Entity({ name: 'question' })
 export class Question extends BaseEntity {
@@ -18,13 +17,13 @@ export class Question extends BaseEntity {
     @JoinColumn({ name: 'category_id' })
     category: Category;
 
-    @OneToMany(() => QuizQuestion, quizQuestion => quizQuestion.question)
-    quizQuestion: QuizQuestion;
+    @OneToMany(() => EventQuestion, eventQuestion => eventQuestion.question)
+    eventQuestion: EventQuestion;
 
     // @ManyToMany(() => Quiz, quiz => quiz.questions)
     // @JoinTable({ name: 'quiz_question' })
     // quizes: Quiz[];
 
-    @OneToMany(() => QuizCompetition, quizCompetition => quizCompetition.question)
-    competitions?: QuizCompetition[];
+    @OneToMany(() => EventCompetition, eventCompetition => eventCompetition.question)
+    competitions?: EventCompetition[];
 }

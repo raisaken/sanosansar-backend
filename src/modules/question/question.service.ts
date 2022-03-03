@@ -4,19 +4,19 @@ import { QuestionOption } from 'src/database/models/question-option.entity';
 import { Question } from 'src/database/models/question.entity';
 import { Connection, Repository } from 'typeorm';
 import { QuestionInput, SubmitAnswerInput, UpdateQuestionInput, UpdateQuestionOptionInput } from './dto/question.input';
-import { QuizCompetition } from 'src/database/models/quiz.competition.entity';
+import { EventCompetition } from 'src/database/models/event-competition.entity';
 
 @Injectable()
 export class QuestionService {
     private _questionRepository: Repository<Question>;
     private _questionOptionRepository: Repository<QuestionOption>;
-    private _questionAnswerRepository: Repository<QuizCompetition>;
+    private _eventAnswerRepository: Repository<EventCompetition>;
 
 
     constructor(private _connection: Connection) {
         this._questionRepository = this._connection.getRepository(Question);
         this._questionOptionRepository = this._connection.getRepository(QuestionOption);
-        this._questionAnswerRepository = this._connection.getRepository(QuizCompetition);
+        this._eventAnswerRepository = this._connection.getRepository(EventCompetition);
     }
 
     async createOption(input: any) {
@@ -27,7 +27,7 @@ export class QuestionService {
     async saveAnswer(id, input: SubmitAnswerInput) {
         const question: Question = await this.findOne(+id);
         if (question) {
-        return await this._questionAnswerRepository.save({
+        return await this._eventAnswerRepository.save({
             ...input,
             question,
             });

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateEventDto, UpdateEventDto } from './dto/event.dto';
 import { EventService } from './event.service';
@@ -26,6 +26,12 @@ export class EventController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.eventService.findOne(+id);
+  }
+
+  @Get('quiz/score/:quizid')
+  quizScore(@Req() req, @Param('quizid') quizid: string) {
+    const { user } = req?.auth;
+    return this.eventService.findQuizScore(+quizid, user.id);
   }
 
   @Patch(':id')

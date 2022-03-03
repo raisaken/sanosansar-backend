@@ -60,7 +60,7 @@ export class QuestionController {
     const { user } = req?.auth;
     const { optionId, timeSpent, quizId } = submitAnswerDto;
     const answerInput: SubmitAnswerInput = {
-      quiz: quizId,
+      event: quizId,
       option: optionId,
       user: user.id,
       question: +questionid,
