@@ -1,5 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { DiscussionLike } from './discussion-like.entity';
 import { Token } from './token.entity';
 
 @Entity({ name: 'users' })
@@ -39,4 +40,7 @@ export class User extends BaseEntity {
 
     @OneToMany(() => Token, token => token.user)
     tokens?: Token[];
+
+    @OneToMany(() => DiscussionLike, like => like.user)
+    discussionLikes?: DiscussionLike[];
 }
