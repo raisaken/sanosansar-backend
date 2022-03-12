@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, Tree, PrimaryColumn, TreeParent, TreeChildren, JoinColumn, OneToMany } from 'typeorm';
+import { DiscussionLike } from './discussion-like.entity';
 
 @Entity({ name: 'discussion' })
 @Tree('materialized-path')
@@ -17,12 +18,11 @@ export class Discussion {
     description: string;
 
     @ApiProperty()
-    @Column({ type: 'varchar', length: 30, nullable: true })
-    time: string;
+    @Column({ type: 'jsonb', nullable: true })
+    media?: any;
 
-    @ApiProperty()
-    @Column({ type: 'int', nullable: true })
-    score: number;
+    @OneToMany(() => DiscussionLike, like => like.discussion)
+    likes?: DiscussionLike[];
 
     @ApiProperty()
     @TreeChildren()
@@ -59,7 +59,4 @@ export class Discussion {
     @ApiProperty()
     @Column({ name: 'updated_by', type: 'varchar', length: 300, nullable: true })
     updatedBy: string;
-
-    // @OneToMany(() => Question, question => question.category)
-    // likes?: Question[];
 }
