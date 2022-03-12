@@ -22,11 +22,11 @@ export class DiscussionService {
   }
 
   findAll() {
-    return this._discussionReopository.find({ relations: ['children', 'likes'] });
+    return this._discussionReopository.find({ relations: ['children', 'likes', 'likes.user'] });
   }
 
   findOne(id: number) {
-    return this._discussionReopository.findOne(id, { relations: ['children', 'likes'] });
+    return this._discussionReopository.findOne(id, { relations: ['children', 'likes', 'likes.user'] });
   }
 
   async update(id: number, updateDiscussionDto: UpdateDiscussionDto) {
