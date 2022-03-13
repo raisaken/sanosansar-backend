@@ -10,6 +10,9 @@ export class CreateDiscussionDto {
 
   @ApiProperty({ type: String })
   file?: string;
+  
+  @ApiProperty({ type: String })
+  type?: string;
 
   @ApiProperty({ type: Number })
   parent?: number

@@ -32,6 +32,7 @@ export class DiscussionService {
   async update(id: number, updateDiscussionDto: UpdateDiscussionDto) {
     const discussion = await this._discussionReopository.findOneOrFail(id);
     discussion.title = updateDiscussionDto.title || discussion.title;
+    discussion.type = updateDiscussionDto.type || discussion.type;
     discussion.media = updateDiscussionDto.file || discussion.media;
 
     discussion.description = updateDiscussionDto.description || discussion.description;

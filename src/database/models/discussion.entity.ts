@@ -18,6 +18,10 @@ export class Discussion {
     description: string;
 
     @ApiProperty()
+    @Column({ type: 'varchar', length: 50, default: 'general' })
+    type?: string;
+
+    @ApiProperty()
     @Column({ type: 'jsonb', nullable: true })
     media?: any;
 

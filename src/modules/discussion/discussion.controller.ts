@@ -13,8 +13,9 @@ export class DiscussionController {
   @Post()
   async create(@Req() req, @Body() createDicussionDto: CreateDiscussionDto) {
     const { user } = req?.auth;
-    const { title, description, parent } = createDicussionDto;
+    const { title, description, parent, type } = createDicussionDto;
     const categoryInput: DiscussionInput = {
+      type,
       title,
       description,
       createdBy: user.id,
