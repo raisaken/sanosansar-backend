@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Media } from 'src/modules/discussion/dto/discussion.input';
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, Tree, PrimaryColumn, TreeParent, TreeChildren, JoinColumn, OneToMany } from 'typeorm';
 import { DiscussionLike } from './discussion-like.entity';
 
@@ -23,7 +24,7 @@ export class Discussion {
 
     @ApiProperty()
     @Column({ type: 'jsonb', nullable: true })
-    media?: any;
+    media?: Media[];
 
     @OneToMany(() => DiscussionLike, like => like.discussion)
     likes?: DiscussionLike[];

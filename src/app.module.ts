@@ -11,6 +11,7 @@ import { QuestionModule } from './modules/question/question.module';
 import { UserModule } from './modules/user/user.module';
 import { EventModule } from './modules/event/event.module';
 import { DiscussionModule } from './modules/discussion/discussion.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { DiscussionModule } from './modules/discussion/discussion.module';
     UserModule,
     EventModule,
     DiscussionModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,7 +9,7 @@ export class CreateDiscussionDto {
   description: string;
 
   @ApiProperty({ type: String })
-  file?: string;
+  files?: string;
   
   @ApiProperty({ type: String })
   type?: string;
