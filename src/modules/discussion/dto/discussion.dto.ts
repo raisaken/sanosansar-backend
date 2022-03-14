@@ -8,8 +8,8 @@ export class CreateDiscussionDto {
   @ApiProperty({ type: String })
   description: string;
 
-  @ApiProperty({ type: String })
-  files?: string;
+  @ApiProperty({ type: 'string', format: 'binary' })
+  files?: any;
   
   @ApiProperty({ type: String })
   type?: string;
