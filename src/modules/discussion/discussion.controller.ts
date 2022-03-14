@@ -1,5 +1,5 @@
 import { FormDataRequest } from 'nestjs-form-data';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { DiscussionService } from './discussion.service';
 import { CreateDiscussionDto, UpdateDiscussionDto } from './dto/discussion.dto';
@@ -19,6 +19,7 @@ export class DiscussionController {
   ) { }
 
   @Post()
+  @ApiConsumes('multipart/form-data')
   async create(@Req() req, @Body() createDicussionDto: CreateDiscussionDto) {
     const { user } = req?.auth;
     const { title, description, parent, type, files } = createDicussionDto;
