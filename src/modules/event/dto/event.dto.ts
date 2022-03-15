@@ -26,4 +26,20 @@ export class CreateEventDto {
   endingDtm?: Date;
 }
 
-export class UpdateEventDto extends PartialType(CreateEventDto) {}
+export class AddScoreDto {
+  @ApiProperty({ type: Number })
+  eventId: number;
+
+  @ApiProperty({ type: Number })
+  score: number;
+
+  @ApiProperty({ type: Number })
+  participantId: number;
+
+  @ApiProperty({ type: String })
+  remarks?: string;
+}
+
+export class UpdateEventDto extends PartialType(CreateEventDto) { }
+export class UpdateScoreDto extends PartialType(AddScoreDto) { }
+

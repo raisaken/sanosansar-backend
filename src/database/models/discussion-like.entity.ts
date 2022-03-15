@@ -1,7 +1,5 @@
-import { Entity, Column, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
-import { Question } from '.';
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
 import { Discussion } from './discussion.entity';
-import { Events } from './event.entity';
 import { User } from './user.entity';
 
 @Entity({ name: 'discussion_like' })

@@ -1,4 +1,5 @@
 import { PartialType } from "@nestjs/swagger";
+import { User } from "src/database/models/user.entity";
 
 export class EventInput {
     title: string;
@@ -9,6 +10,14 @@ export class EventInput {
     eventDate?: string;
     startingDtm?: Date;
     endingDtm?: Date;
+}
+
+export class EventScoreInput {
+    event: number;
+    score: number;
+    participant: User;
+    remarks?: string;
+    judge: number;
 }
 
 export class UpdateEventInput extends PartialType(EventInput) { }

@@ -1,12 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateEventDto, UpdateEventDto } from './dto/event.dto';
+import { UserService } from '../user/services/user.service';
+import { AddScoreDto, CreateEventDto, UpdateEventDto } from './dto/event.dto';
+import { EventScoreInput } from './dto/event.input';
 import { EventService } from './event.service';
 
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-    constructor(private readonly eventService: EventService) {}
+  constructor(
+    private readonly eventService: EventService,
+    private readonly userService: UserService,
+  ) { }
 
   @Post()
   async create(@Body() createEventDto: CreateEventDto) {
@@ -46,5 +51,26 @@ export class EventController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.eventService.remove(+id);
+  }
+
+  @Post('/judge/score')
+  async addScore(@Req() req, @Body() addScoreDto: AddScoreDto) {
+    const { user } = req?.auth;
+    const { eventId, score, participantId, remarks } = addScoreDto;
+    try {
+      const participant = await this.userService.findOne(participantId);
+
+      const scoreInfo: EventScoreInput = {
+        event: eventId,
+        score,
+        participant,
+        judge: user.id,
+        remarks,
+      };
+      const res = await this.eventService.adddEventScore(scoreInfo);
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }

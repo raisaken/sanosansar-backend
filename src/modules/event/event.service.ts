@@ -1,16 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { EventCompetition } from 'src/database/models/event-competition.entity';
+import { EventScore } from 'src/database/models/event-score.entity';
 import { Events } from 'src/database/models/event.entity';
 import { Connection, Repository } from 'typeorm';
-import { EventInput, UpdateEventInput } from './dto/event.input';
+import { EventInput, EventScoreInput, UpdateEventInput } from './dto/event.input';
 
 @Injectable()
 export class EventService {
     private _eventRepository: Repository<Events>;
+    private _eventScoreRepository: Repository<EventScore>;
     private _eventCompetitionRepository: Repository<EventCompetition>;
 
     constructor(private _connection: Connection) {
         this._eventRepository = this._connection.getRepository(Events);
+        this._eventScoreRepository = this._connection.getRepository(EventScore);
         this._eventCompetitionRepository = this._connection.getRepository(EventCompetition);
     }
 
@@ -84,5 +87,10 @@ export class EventService {
 
     remove(id: number) {
         return this._eventRepository.delete(id);
+    }
+
+    async adddEventScore(input: EventScoreInput) {
+        const res = await this._eventScoreRepository.save(input);
+        return res;
     }
 }
