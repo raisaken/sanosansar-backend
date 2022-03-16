@@ -47,7 +47,9 @@ export class DiscussionService {
   async findTree() {
     const trees = await this._discussionReopository.manager
       .getTreeRepository(Discussion)
-      .findTrees();
+      .findTrees({
+        relations: ['likes']
+      });
     return trees;
   }
 
