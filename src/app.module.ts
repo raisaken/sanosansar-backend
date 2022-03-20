@@ -34,7 +34,12 @@ export class AppModule {
       .forRoutes({ path: '*', method: RequestMethod.POST });
     consumer
       .apply(AuthMiddleware)
-      .exclude({ path: 'api/v1/auth/(.*)', method: RequestMethod.ALL })
-      .forRoutes({ path: '*', method: RequestMethod.POST });
+      .exclude(
+        { path: 'api/v1/event/', method: RequestMethod.GET },
+        { path: 'api/v1/question/', method: RequestMethod.GET },
+        { path: 'api/v1/discussion/', method: RequestMethod.GET },
+        { path: 'api/v1/auth/(.*)', method: RequestMethod.ALL }
+        )
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
