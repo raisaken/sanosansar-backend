@@ -73,4 +73,15 @@ export class EventController {
       throw new Error(err);
     }
   }
+
+  @Get('/judge/score/:id')
+  async getEventScores(@Req() req, @Param('id') id: string) {
+    const { user } = req?.auth;
+    try {
+      const res = await this.eventService.findEventScores(+id);
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }

@@ -93,4 +93,19 @@ export class EventService {
         const res = await this._eventScoreRepository.save(input);
         return res;
     }
+
+
+    async findEventScores(eventId: number) {
+        const compInfo = await this._eventScoreRepository
+            .createQueryBuilder('eventScore')
+            .leftJoinAndSelect('eventScore.participant', 'participant')
+            .where({
+                event: eventId,
+            })
+            .getMany();
+
+
+        return compInfo;
+
+    }
 }
