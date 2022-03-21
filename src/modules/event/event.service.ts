@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EventCompetition } from 'src/database/models/event-competition.entity';
 import { EventScore } from 'src/database/models/event-score.entity';
 import { Events } from 'src/database/models/event.entity';
-import { Connection, Repository } from 'typeorm';
+import { Connection, MoreThan, Repository } from 'typeorm';
 import { EventInput, EventScoreInput, UpdateEventInput } from './dto/event.input';
 
 @Injectable()
@@ -106,6 +106,16 @@ export class EventService {
 
 
         return compInfo;
+
+    }
+
+    async findAllEventScores() {
+        const scoreInfo = await this._eventScoreRepository
+            .createQueryBuilder('eventScore')
+            .leftJoinAndSelect('eventScore.participant', 'participant')
+            .where({ score: MoreThan(0) })
+            .getMany();
+        return scoreInfo;
 
     }
 }

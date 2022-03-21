@@ -74,6 +74,17 @@ export class EventController {
     }
   }
 
+  @Get('/judge/score/')
+  async getAllScores(@Req() req) {
+    const { user } = req?.auth;
+    try {
+      const res = await this.eventService.findAllEventScores();
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   @Get('/judge/score/:id')
   async getEventScores(@Req() req, @Param('id') id: string) {
     const { user } = req?.auth;
