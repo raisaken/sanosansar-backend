@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/database/models/user.entity';
-import { Repository, Connection } from 'typeorm';
+import { Repository, Connection, Like } from 'typeorm';
+import { UserQueryDto } from '../dto/user-query.dto';
 import { UpdateUserInput, UserInput } from '../dto/user.input';
 
 @Injectable()
@@ -18,6 +19,37 @@ export class UserService {
 
   findAll() {
     return this._userRepository.find();
+  }
+
+  async findUsersByRole(query: UserQueryDto){
+    let { page, limit, order, role } = query;
+        page = page ? Number(page) : 1;
+        limit = limit ? Number(limit) : 10;
+        const orderBy = order ? order : 'DESC';
+        const condition: any = {
+            isActive: true
+        };
+
+        if (role) {
+          condition.role = Like(`%${role}%`);
+      }
+
+      const [result, total] = await Promise.all([
+        this._userRepository.find({
+            where: condition,
+            take: limit,
+            skip: limit * (page - 1),
+            order: { createdAt: order },
+        }),
+        this._userRepository.count(condition),
+    ]);
+    
+    return {
+      result,
+      total,
+      page,
+      perPage: limit,
+  };
   }
 
   findOne(id: number) {
