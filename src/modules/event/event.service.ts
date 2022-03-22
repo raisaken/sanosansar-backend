@@ -118,4 +118,16 @@ export class EventService {
         return scoreInfo;
 
     }
+
+    async findEventScoresOfParticipant(eventId: number, participantId: number) {
+        const scoreInfo = await this._eventScoreRepository
+            .createQueryBuilder('eventScore')
+            .leftJoinAndSelect('eventScore.participant', 'participant')
+            .where({
+                event: eventId,
+                participant: participantId,
+            })
+            .getMany();
+        return scoreInfo;
+    }
 }
