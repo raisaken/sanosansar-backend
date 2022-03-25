@@ -12,6 +12,7 @@ import { UserModule } from './modules/user/user.module';
 import { EventModule } from './modules/event/event.module';
 import { DiscussionModule } from './modules/discussion/discussion.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UploadModule } from './modules/upload/upload.module';
     EventModule,
     DiscussionModule,
     UploadModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],
