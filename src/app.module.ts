@@ -14,6 +14,7 @@ import { DiscussionModule } from './modules/discussion/discussion.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { FileModule } from './modules/file/file.module';
+import { GallaryModule } from './modules/gallary/gallary.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FileModule } from './modules/file/file.module';
     UploadModule,
     ContactModule,
     FileModule,
+    GallaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
