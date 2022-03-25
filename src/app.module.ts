@@ -13,6 +13,7 @@ import { EventModule } from './modules/event/event.module';
 import { DiscussionModule } from './modules/discussion/discussion.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { ContactModule } from './modules/contact/contact.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ContactModule } from './modules/contact/contact.module';
     DiscussionModule,
     UploadModule,
     ContactModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -41,6 +43,7 @@ export class AppModule {
         { path: 'api/v1/question/', method: RequestMethod.GET },
         { path: 'api/v1/discussion/', method: RequestMethod.GET },
         { path: 'api/v1/discussion/tree', method: RequestMethod.GET },
+        { path: 'api/v1/contact/(.*)', method: RequestMethod.ALL },
         { path: 'api/v1/auth/(.*)', method: RequestMethod.ALL }
         )
       .forRoutes({ path: '*', method: RequestMethod.ALL });
