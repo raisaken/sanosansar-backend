@@ -15,6 +15,7 @@ import { UploadModule } from './modules/upload/upload.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { FileModule } from './modules/file/file.module';
 import { GallaryModule } from './modules/gallary/gallary.module';
+import { DownloadModule } from './modules/download/download.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { GallaryModule } from './modules/gallary/gallary.module';
     ContactModule,
     FileModule,
     GallaryModule,
+    DownloadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
