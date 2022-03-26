@@ -19,8 +19,9 @@ export class EventScore {
     @JoinColumn({ name: 'user_id' })
     participant: User;
 
-    @Column({ name: 'judge_id', type: 'integer', nullable: true })
-    judge: number;
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn({ name: 'judge_id' })
+    judge: User;
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;

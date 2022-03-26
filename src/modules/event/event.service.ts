@@ -99,6 +99,7 @@ export class EventService {
         const compInfo = await this._eventScoreRepository
             .createQueryBuilder('eventScore')
             .leftJoinAndSelect('eventScore.participant', 'participant')
+            .leftJoinAndSelect('eventScore.judge', 'judge')
             .where({
                 event: eventId,
             })
@@ -123,6 +124,7 @@ export class EventService {
         const scoreInfo = await this._eventScoreRepository
             .createQueryBuilder('eventScore')
             .leftJoinAndSelect('eventScore.participant', 'participant')
+            .leftJoinAndSelect('eventScore.judge', 'judge')
             .where({
                 event: eventId,
                 participant: participantId,

@@ -17,7 +17,7 @@ export class EventScoreInput {
     score: number;
     participant: User;
     remarks?: string;
-    judge: number;
+    judge: User;
 }
 
 export class UpdateEventInput extends PartialType(EventInput) { }
