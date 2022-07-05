@@ -8,6 +8,7 @@ import {
   Delete,
   Req,
   Query,
+  ConflictException,
 } from '@nestjs/common';
 import { UserService } from './services/user.service';
 import { UserInput } from './dto/user.input';
@@ -24,30 +25,39 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const {
-      firstName,
-      middleName,
-      lastName,
-      gender,
-      email,
-      role,
-      password,
-      phoneNumber,
-      dateOfBirth,
-    } = createUserDto;
+    try {
+      const {
+        firstName,
+        middleName,
+        lastName,
+        gender,
+        email,
+        role,
+        password,
+        phoneNumber,
+        dateOfBirth,
+      } = createUserDto;
 
-    const user: UserInput = {
-      firstName,
-      middleName,
-      lastName,
-      email,
-      phoneNumber: Number(phoneNumber),
-      gender,
-      role,
-      password: await bcrypt.hash(password, 8),
-      dateOfBirth,
-    };
-    return this.userService.create(user);
+      const isUserExistsWithEmail = await this.userService.findByEmail(email);
+      if (isUserExistsWithEmail) {
+        throw new ConflictException(`User already exists for requested email: ${email}.`)
+      }
+
+      const user: UserInput = {
+        firstName,
+        middleName,
+        lastName,
+        email,
+        phoneNumber: Number(phoneNumber),
+        gender,
+        role,
+        password: await bcrypt.hash(password, 8),
+        dateOfBirth,
+      };
+      return this.userService.create(user);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Get()

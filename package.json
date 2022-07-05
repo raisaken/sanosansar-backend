@@ -1,8 +1,8 @@
 {
   "name": "sanosansar",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "sanosansar backend apis",
+  "author": "Sandip Basnet",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -57,7 +57,7 @@ export class UserService {
   }
 
   findByEmail(email: string) {
-    return this._userRepository.findOneOrFail({
+    return this._userRepository.findOne({
       where: {
         email
       },
