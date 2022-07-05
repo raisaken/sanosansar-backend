@@ -20,7 +20,7 @@ import { UserQueryDto } from './dto/user-query.dto';
 @Controller('user')
 @ApiBearerAuth('authorization')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
@@ -74,10 +74,14 @@ export class UserController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    if (updateUserDto.password) {
-      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 8);
+    try {
+      if (updateUserDto.password) {
+        updateUserDto.password = await bcrypt.hash(updateUserDto.password, 8);
+      }
+      return this.userService.update(+id, updateUserDto);
+    } catch (err) {
+      throw err;
     }
-    return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
