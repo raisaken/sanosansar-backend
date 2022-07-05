@@ -1,46 +1,48 @@
 ## Sanosansar Backend
+
 > Sanosansar API.
 
 ## Environment
+
 ```bash
-$ cp .env.example .env
+cp .env.example .env
 ```
 
 ## Installation
 
 ```bash
-$ yarn
+yarn
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn start
+yarn start
 
 # watch mode
-$ yarn start:dev
+yarn start:dev
 
 # production mode
-$ yarn start:prod
+yarn start:prod
 ```
 
 ## Generate Migration From Entity
 
 ```bash
-$ yarn typeorm migration:generate -n  migrations_name
+yarn typeorm migration:generate -n  migrations_name
 ```
 
 ## Run Migration
 
 ```bash
-$ yarn typeorm migration:run
+yarn typeorm migration:run
 ```
 
-## Rollback Migration 
+## Rollback Migration
 
 ```bash
-$ yarn typeorm migration:revert
+yarn typeorm migration:revert
 ```
 
 ## Test
@@ -73,4 +75,9 @@ $ yarn test:cov
 
 # start service: 
 5. pm2 start dist/main.js --name <name>:<port>
+```
+## heroku deployment
+
+```bash
+git push heroku main
 ```
