@@ -85,8 +85,16 @@ export class UserController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
-      if (updateUserDto.password) {
-        updateUserDto.password = await bcrypt.hash(updateUserDto.password, 8);
+
+      const { email, password } = updateUserDto;
+      if(email){
+        const userByEmail =  await this.userService.findByEmail(email);
+        if(userByEmail){
+          throw new ConflictException(`user can't be updated with email: ${email}`)
+        }
+      }
+      if (password) {
+        updateUserDto.password = await bcrypt.hash(password, 8);
       }
       return this.userService.update(+id, updateUserDto);
     } catch (err) {
