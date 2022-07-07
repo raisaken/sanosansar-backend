@@ -66,11 +66,16 @@ export class UserService {
   }
   
   async update(id: number, updateUserDto: UpdateUserInput) {
+    const { email, firstName, lastName, password, gender, role, dateOfBirth } = updateUserDto;
     const user = await this._userRepository.findOne(id, { select: ['password']});
     if(user){
-      user.firstName = updateUserDto.firstName || user.firstName;
-      user.lastName = updateUserDto.lastName || user.lastName;
-      user.password = updateUserDto.password || user.password;
+      user.role =  role || user.role;
+      user.email =  email || user.email;
+      user.gender =  gender || user.gender;
+      user.password = password || user.password;
+      user.lastName = lastName || user.lastName;
+      user.firstName = firstName || user.firstName;
+      user.dateOfBirth =  dateOfBirth || user.role;
       await this._userRepository.save(user);
     }
     return user;
