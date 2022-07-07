@@ -86,7 +86,7 @@ export class UserController {
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
 
-      const { password } = updateUserDto;
+      const { email, password } = updateUserDto;
       // if(email){
       //   const userByEmail =  await this.userService.findByEmail(email);
       //   if(userByEmail){
