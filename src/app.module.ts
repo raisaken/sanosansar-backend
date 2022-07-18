@@ -16,6 +16,8 @@ import { ContactModule } from './modules/contact/contact.module';
 import { FileModule } from './modules/file/file.module';
 import { GallaryModule } from './modules/gallary/gallary.module';
 import { DownloadModule } from './modules/download/download.module';
+import { TeamModule } from './modules/team/team.module';
+import { PageModule } from './modules/page/page.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { DownloadModule } from './modules/download/download.module';
     FileModule,
     GallaryModule,
     DownloadModule,
+    TeamModule,
+    PageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -43,6 +47,8 @@ export class AppModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
+        { path: 'api/v1/page/', method: RequestMethod.GET },
+        { path: 'api/v1/team/', method: RequestMethod.GET },
         { path: 'api/v1/event/', method: RequestMethod.GET },
         { path: 'api/v1/question/', method: RequestMethod.GET },
         { path: 'api/v1/discussion/', method: RequestMethod.GET },
