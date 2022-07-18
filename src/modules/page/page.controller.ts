@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, NotFoundException } from '@nestjs/common';
 import { PageService } from './page.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from './dto/page-query.dto';
 
 @ApiTags('page')
 @Controller('page')
 @ApiBearerAuth('authorization')
 export class PageController {
-  constructor(private readonly pageService: PageService) {}
+  constructor(private readonly pageService: PageService) { }
 
   @Post()
   create(@Body() createPageDto: CreatePageDto) {
@@ -18,6 +19,20 @@ export class PageController {
   @Get()
   findAll() {
     return this.pageService.findAll();
+  }
+
+  @Get('/info')
+  async findByName(@Query() query: PaginationQueryDto) {
+    try {
+      const { name } = query;
+      const page = await this.pageService.findByName(name);
+      if (!page) {
+        throw new NotFoundException(`Page with name: ${name} not found.`)
+      }
+      return page;
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Get(':id')

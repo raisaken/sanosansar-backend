@@ -25,13 +25,17 @@ export class PageService {
     return this._pageRepository.findOne(id);
   }
 
+  findByName(name: string) {
+    return this._pageRepository.findOne({ where: { name } });
+  }
+
   async update(id: number, updatePageDto: UpdatePageDto) {
     const { name, title, description, image } = updatePageDto;
     const page = await this.findOne(id);
 
-    if(page){
-      page.name =  name || page.name;
-      page.title =  title || page.title;
+    if (page) {
+      page.name = name || page.name;
+      page.title = title || page.title;
       page.description = description || page.description;
       // page.image = image || page.image;
       await this._pageRepository.save(page);
