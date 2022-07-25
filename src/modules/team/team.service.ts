@@ -40,7 +40,7 @@ export class TeamService {
       team.twitterLink =  twitterLink || team.twitterLink;
       team.instagramLink =  instagramLink || team.instagramLink;
 
-      // team.image = image || team.image;
+      team.image = image || team.image;
       await this._teamRepository.save(team);
     }
     return team;
