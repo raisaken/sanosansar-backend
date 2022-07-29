@@ -6,8 +6,8 @@ export class Team extends BaseEntity {
     @Column({ type: 'varchar', length: 50, nullable: false })
     name: string;
 
-    @Column({ type: 'varchar', length: 700, nullable: true })
-    description: string;
+    @Column({ type: 'text', nullable: true })
+    description?: string;
 
     @Column({ type: 'varchar', length: 70, nullable: true })
     position: string;

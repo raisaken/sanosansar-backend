@@ -17,8 +17,8 @@ export class PageController {
   }
 
   @Get()
-  findAll() {
-    return this.pageService.findAll();
+  findAll(@Query() query: PaginationQueryDto) {
+    return this.pageService.findAll(query);
   }
 
   @Get('/info')

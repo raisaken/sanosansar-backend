@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Page } from 'src/database/models/page.entity';
 import { Connection, Repository } from 'typeorm';
 import { CreatePageDto } from './dto/create-page.dto';
+import { PaginationQueryDto } from './dto/page-query.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
 
 @Injectable()
@@ -17,8 +18,13 @@ export class PageService {
     return page;
   }
 
-  findAll() {
-    return this._pageRepository.find();
+  findAll(query: PaginationQueryDto) {
+    const { name } = query;
+    const condition: any = {};
+    if(query){
+      condition.name = name;
+    }
+    return this._pageRepository.find({ where: condition });
   }
 
   findOne(id: number) {
@@ -26,7 +32,7 @@ export class PageService {
   }
 
   findByName(name: string) {
-    return this._pageRepository.findOne({ where: { name } });
+    return this._pageRepository.find({ where: { name } });
   }
 
   async update(id: number, updatePageDto: UpdatePageDto) {
