@@ -1,13 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional } from "class-validator";
+import { IsOptional, MaxLength } from "class-validator";
 
 export class CreateTeamDto {
+    @MaxLength(50)
     @ApiProperty({ type: String })
     name: string;
     
     @ApiProperty({ type: String })
     description?: string;
     
+    @MaxLength(50)
     @ApiProperty({ type: String })
     position?: string;
     
@@ -17,6 +19,8 @@ export class CreateTeamDto {
     @ApiProperty()
     phone?: number;
     
+    @MaxLength(30)
+    @IsOptional()
     @ApiProperty({ type: String })
     email?: string;
     
