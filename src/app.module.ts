@@ -47,13 +47,13 @@ export class AppModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
-        { path: 'api/v1/page/', method: RequestMethod.GET },
-        { path: 'api/v1/team/', method: RequestMethod.GET },
-        { path: 'api/v1/event/', method: RequestMethod.GET },
-        { path: 'api/v1/question/', method: RequestMethod.GET },
-        { path: 'api/v1/discussion/', method: RequestMethod.GET },
+        { path: 'api/v1/page', method: RequestMethod.GET },
+        { path: 'api/v1/team', method: RequestMethod.GET },
+        { path: 'api/v1/event', method: RequestMethod.GET },
+        { path: 'api/v1/question', method: RequestMethod.GET },
+        { path: 'api/v1/discussion', method: RequestMethod.GET },
         { path: 'api/v1/discussion/tree', method: RequestMethod.GET },
-        { path: 'api/v1/contact/(.*)', method: RequestMethod.ALL },
+        { path: 'api/v1/contact(.*)', method: RequestMethod.ALL },
         { path: 'api/v1/auth/(.*)', method: RequestMethod.ALL }
         )
       .forRoutes({ path: '*', method: RequestMethod.ALL });
