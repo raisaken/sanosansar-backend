@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { EventCompetition } from 'src/database/models/event-competition.entity';
+import { EventRegistration } from 'src/database/models/event-registration.entity';
 import { EventScore } from 'src/database/models/event-score.entity';
 import { Events } from 'src/database/models/event.entity';
 import { Connection, MoreThan, Repository } from 'typeorm';
+import { CreateEventRegistrationInput } from './dto/event-registration.dto';
 import { EventInput, EventScoreInput, UpdateEventInput } from './dto/event.input';
 
 @Injectable()
@@ -10,11 +12,13 @@ export class EventService {
     private _eventRepository: Repository<Events>;
     private _eventScoreRepository: Repository<EventScore>;
     private _eventCompetitionRepository: Repository<EventCompetition>;
+    private _eventRegistrationRepository: Repository<EventRegistration>;
 
     constructor(private _connection: Connection) {
         this._eventRepository = this._connection.getRepository(Events);
         this._eventScoreRepository = this._connection.getRepository(EventScore);
         this._eventCompetitionRepository = this._connection.getRepository(EventCompetition);
+        this._eventRegistrationRepository = this._connection.getRepository(EventRegistration);
     }
 
     async createOption(input: any) {
@@ -27,6 +31,11 @@ export class EventService {
         return res;
     }
 
+    async eventRegistration(input: CreateEventRegistrationInput) {
+        const res = await this._eventRegistrationRepository.save(input);
+        return res;
+    }
+
     findAll() {
         return this._eventRepository.find();
     }
@@ -36,6 +45,7 @@ export class EventService {
             where: {
                 id
             },
+            relations: ['registrations'],
         });
     }
 

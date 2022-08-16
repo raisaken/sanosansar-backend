@@ -9,7 +9,7 @@ export class EventRegistration extends BaseEntity {
     firstName: string;
 
     @Column({ name: 'middle_name', type: 'varchar', length: 30, nullable: true })
-    middleName: string;
+    middleName?: string;
 
     @Column({ name: 'last_name', type: 'varchar', length: 30, nullable: false })
     lastName: string;
@@ -17,21 +17,24 @@ export class EventRegistration extends BaseEntity {
     @Column({ name: 'email', type: 'varchar', length: 30, nullable: true })
     email: string;
 
-    @Column({ name: 'phone_number', type: 'int', nullable: true })
-    phoneNumber: number;
+    @Column({ name: 'phone_number', type: 'varchar', nullable: true })
+    phoneNumber: string;
 
     @Column({ name: 'guardian_name', type: 'varchar', length: 30, nullable: false })
     guardianName: string;
 
-    @Column({ name: 'guardian_phone_number', type: 'int', nullable: true  })
-    guardianPhoneNumber: number;
+    @Column({ name: 'guardian_phone_number', type: 'varchar', nullable: true  })
+    guardianPhoneNumber: string;
     
     @Column({ name: 'school_name', type: 'varchar', length: 100, nullable: true })
     schoolName: string;
 
     @ManyToOne(() => Events, event => event.registrations)
     @JoinColumn({ name: 'event_id' })
-    event: Events;  
+    event: Events;
+    
+    @Column({ name: 'is_verified', type: 'boolean', default: false })
+    isVerified?: boolean;
 
     // @OneToMany(() => EventCompetition, eventCompetition => eventCompetition.eventRegistration)
     // competitions?: EventCompetition[];
