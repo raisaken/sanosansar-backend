@@ -1,9 +1,10 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { Events } from 'src/database/models/event.entity';
 
 export class CreateEventRegistrationDto {
     @ApiProperty({ type: String })
+    @IsNotEmpty()
     firstName: string;
 
     @ApiProperty({ type: String })
@@ -11,6 +12,7 @@ export class CreateEventRegistrationDto {
     middleName?: string;
 
     @ApiProperty({ type: String })
+    @IsNotEmpty()
     lastName: string;
 
     @ApiProperty({ type: String })
@@ -22,6 +24,7 @@ export class CreateEventRegistrationDto {
     phoneNumber?: string;
 
     @ApiProperty({ type: String })
+    @IsNotEmpty()
     guardianName: string;
 
     @ApiProperty({ type: String })
@@ -33,6 +36,7 @@ export class CreateEventRegistrationDto {
     schoolName?: string;
 
     @ApiProperty({ type: Number })
+    @IsNotEmpty()
     eventId: number;
 }
 
