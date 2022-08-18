@@ -67,6 +67,15 @@ export class EventService {
         });
     }
 
+    findAllRegisteredEvents(userId) {
+        return this._eventRegistrationRepository.find({
+            where: {
+                createdBy: userId
+            },
+            relations: ['event']
+        })
+    }
+
     async findQuizScore(quizId: number, userId: number) {
         const compInfo = await this._eventCompetitionRepository
             .createQueryBuilder('competition')

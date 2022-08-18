@@ -24,7 +24,7 @@ export class EventController {
     }
   }
 
-  @Post('register')
+  @Post('registers')
   async eventRegistration(@Req() req, @Body() createEventRegistrationDto: CreateEventRegistrationDto) {
     const { user } = req?.auth;
     const { firstName, middleName,
@@ -64,6 +64,12 @@ export class EventController {
     } catch (err) {
       throw err;
     }
+  }
+
+  @Get('registers')
+  findAllRegisteredEvents(@Req() req) {
+    const { user } = req?.auth;
+    return this.eventService.findAllRegisteredEvents(user.id);
   }
 
   @Get()
