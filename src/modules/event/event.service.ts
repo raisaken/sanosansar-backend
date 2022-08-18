@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { EventCompetition } from 'src/database/models/event-competition.entity';
 import { EventRegistration } from 'src/database/models/event-registration.entity';
 import { EventScore } from 'src/database/models/event-score.entity';
@@ -46,6 +46,24 @@ export class EventService {
                 id
             },
             relations: ['registrations'],
+        });
+    }
+
+    findById(id: number) {
+        return this._eventRepository.findOne({
+            where: {
+                id
+            },
+        });
+    }
+
+    findRegistrationDetails(event: number, createdBy: number) {
+        Logger.debug(`looking for event: ${event} created by: ${createdBy}`);
+        return this._eventRegistrationRepository.findOne({
+            where: {
+                event,
+                createdBy: createdBy
+            },
         });
     }
 

@@ -25,7 +25,8 @@ export class EventController {
   }
 
   @Post('register')
-  async eventRegistration(@Body() createEventRegistrationDto: CreateEventRegistrationDto) {
+  async eventRegistration(@Req() req, @Body() createEventRegistrationDto: CreateEventRegistrationDto) {
+    const { user } = req?.auth;
     const { firstName, middleName,
       lastName,
       email,
@@ -43,9 +44,17 @@ export class EventController {
         guardianName,
         guardianPhoneNumber,
         schoolName,
+        createdBy: user?.id,
+        updatedBy: user?.id,
       };
+
+      const isAlreadyExists = await this.eventService.findRegistrationDetails(eventId, user.id);
+      if (isAlreadyExists) {
+        return isAlreadyExists;
+      }
+
       if (eventId) {
-        const event = await this.eventService.findOne(+eventId);
+        const event = await this.eventService.findById(+eventId);
         if (!event) {
           throw new NotFoundException(`Invalid event id`);
         }

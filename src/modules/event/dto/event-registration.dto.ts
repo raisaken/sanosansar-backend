@@ -50,6 +50,8 @@ export class CreateEventRegistrationInput {
     guardianPhoneNumber?: string;
     schoolName?: string;
     event?: Events;
+    createdBy?: string;
+    updatedBy?: string;
 }
 
 export class UpdateEventRegistrationDto extends PartialType(CreateEventRegistrationDto) { }
