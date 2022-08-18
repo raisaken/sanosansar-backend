@@ -4,7 +4,7 @@ import { PartialType } from "@nestjs/swagger";
 export class Media {
   id?: string;
   url: string;
-  dimesion?: string;
+  dimension?: string;
 }
 
 export class DiscussionInput {

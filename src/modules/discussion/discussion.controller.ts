@@ -20,9 +20,9 @@ export class DiscussionController {
 
   @Post()
   @ApiConsumes('multipart/form-data')
-  async create(@Req() req, @Body() createDicussionDto: CreateDiscussionDto) {
+  async create(@Req() req, @Body() createDiscussionDto: CreateDiscussionDto) {
     const { user } = req?.auth;
-    const { title, description, parent, type, files } = createDicussionDto;
+    const { title, description, parent, type, files } = createDiscussionDto;
     const categoryInput: DiscussionInput = {
       type,
       title,
@@ -31,12 +31,12 @@ export class DiscussionController {
       updatedBy: user.id,
     };
     if (files) {
-      const imageInfo = await this.uploadService.uploadMedia(files);
-      categoryInput.media = [{ id: imageInfo.asset_id, url: imageInfo.secure_url, dimesion: `${imageInfo.width}x${imageInfo.height}` }];
+      const imageInfo = await this.uploadService.uploadMediaToCloudinary(files);
+      categoryInput.media = [{ id: imageInfo.asset_id, url: imageInfo.secure_url, dimension: `${imageInfo.width}x${imageInfo.height}` }];
     }
     if (parent) {
       categoryInput.parent = await this.discussionService.findOne(
-        createDicussionDto.parent,
+        createDiscussionDto.parent,
       );
     }
     return this.discussionService.create(categoryInput);

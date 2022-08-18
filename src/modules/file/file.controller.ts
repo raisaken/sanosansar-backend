@@ -20,8 +20,8 @@ export class FileController {
     const { file } = createFileDto;
     try {
       if (file) {
-        const imageInfo = await this.uploadService.uploadMedia(file);
-        return { url: imageInfo.secure_url };
+        const fileLocation = await this.uploadService.uploadMedia(file);
+        return { url: fileLocation };
       }
     } catch (error) {
       throw new Error(error);
