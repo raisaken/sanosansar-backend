@@ -11,8 +11,8 @@ export class UploadService {
     private awsService = null;
     constructor() {
         this.awsService = new AWS.S3({
-            accessKeyId: configService.get('AWS_S3.ACCESS_KEY_ID'),
-            secretAccessKey: configService.get('AWS_S3.SECRET_ACCESS_KEY'),
+            accessKeyId: configService.get('AWS_S3_ACCESS_KEY_ID'),
+            secretAccessKey: configService.get('AWS_S3_SECRET_ACCESS_KEY'),
         });
     }
 
@@ -28,7 +28,7 @@ export class UploadService {
     }
 
     public async uploadMedia(file: any, filename?: string) {
-        Logger.log(`Uploading file to s3 bucket: ${configService.get('AWS_S3.BUCKET')}`);
+        Logger.log(`Uploading file to s3 bucket: ${configService.get('AWS_S3_BUCKET')}`);
         try {
             const ext = file.originalName
                 ? file.originalName.split('.')[1]
@@ -40,7 +40,7 @@ export class UploadService {
             const fileName = filename ? filename + originalFIleName + '.' + ext : `${new Date().getTime()}.${ext}`;
 
             const params = {
-                Bucket: configService.get('AWS_S3.BUCKET'),
+                Bucket: configService.get('AWS_S3_BUCKET'),
                 Key: fileName,
                 Body: file.buffer,
                 ContentType: file.mimetype,
@@ -66,7 +66,7 @@ export class UploadService {
         const res: any = await new Promise((resolve, reject) => {
             this.awsService.deleteObject(
                 {
-                    Bucket: configService.get('AWS_S3.BUCKET'),
+                    Bucket: configService.get('AWS_S3_BUCKET'),
                     Key,
                 },
                 (err, data) => {
