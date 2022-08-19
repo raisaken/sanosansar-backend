@@ -28,7 +28,7 @@ export class UploadService {
     }
 
     public async uploadMedia(file: any, filename?: string) {
-        Logger.log('Uploading file to s3');
+        Logger.log(`Uploading file to s3 bucket: ${configService.get('AWS_S3.BUCKET')}`);
         try {
             const ext = file.originalName
                 ? file.originalName.split('.')[1]
