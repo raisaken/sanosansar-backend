@@ -22,7 +22,7 @@ export class DiscussionService {
   }
 
   findAll() {
-    return this._discussionReopository.find({ relations: ['children', 'likes', 'likes.user'] });
+    return this._discussionReopository.find({ relations: ['children', 'likes', 'likes.user'], order: { id: 'DESC' } });
   }
 
   findOne(id: number) {
@@ -70,7 +70,7 @@ export class DiscussionService {
     }
     const discussion = await this.findOne(likeInput.discussion);
     const user = await this.userService.findOne(likeInput.user);
-    const like = await this._discussionLikeReopository.save({ discussion, user});
+    const like = await this._discussionLikeReopository.save({ discussion, user });
     return like;
   }
 

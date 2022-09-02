@@ -31,8 +31,8 @@ export class DiscussionController {
       updatedBy: user.id,
     };
     if (files) {
-      const imageInfo = await this.uploadService.uploadMediaToCloudinary(files);
-      categoryInput.media = [{ id: imageInfo.asset_id, url: imageInfo.secure_url, dimension: `${imageInfo.width}x${imageInfo.height}` }];
+      const fileLocation = await this.uploadService.uploadMedia(files);
+      categoryInput.media = [{ id: '1', url: fileLocation, dimension: 'custom' }];
     }
     if (parent) {
       categoryInput.parent = await this.discussionService.findOne(
