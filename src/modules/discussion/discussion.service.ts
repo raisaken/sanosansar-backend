@@ -30,13 +30,17 @@ export class DiscussionService {
   }
 
   async update(id: number, updateDiscussionDto: UpdateDiscussionDto) {
+    const { title, description, type, isActive, timeToPublish } = updateDiscussionDto;
     const discussion = await this._discussionReopository.findOneOrFail(id);
-    discussion.title = updateDiscussionDto.title || discussion.title;
-    discussion.type = updateDiscussionDto.type || discussion.type;
-    // discussion.media = updateDiscussionDto.file || discussion.media;
-
-    discussion.description = updateDiscussionDto.description || discussion.description;
-    await this._discussionReopository.save(discussion);
+    if (discussion) {
+      discussion.type = type || discussion.type;
+      discussion.title = title || discussion.title;
+      discussion.isActive = isActive || discussion.isActive;
+      discussion.description = description || discussion.description;
+      discussion.timeToPublish = timeToPublish || discussion.timeToPublish;
+      // discussion.media = updateDiscussionDto.file || discussion.media;
+      await this._discussionReopository.save(discussion);
+    }
     return discussion;
   }
 

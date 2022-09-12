@@ -14,4 +14,7 @@ export class Gallary extends BaseEntity {
 
     @Column({ type: 'varchar', length: 100, nullable: false })
     url: string;
+
+    @Column({ name: 'time_to_publish', type: 'timestamptz', nullable: true })
+    timeToPublish?: Date;
 }

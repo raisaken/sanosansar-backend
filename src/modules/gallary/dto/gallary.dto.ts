@@ -12,6 +12,12 @@ export class CreateGallaryDto {
     
     @ApiProperty({ type: String })
     url: string;
+
+    @ApiProperty({ type: Date })
+    timeToPublish?: Date;
+
+    @ApiProperty({ type: Boolean })
+    isActive?: boolean;
 }
 
 export class UpdateGallaryDto extends PartialType(CreateGallaryDto) {}

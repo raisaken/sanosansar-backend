@@ -16,6 +16,12 @@ export class CreateDiscussionDto {
 
   @ApiProperty({ type: Number })
   parent?: number
+
+  @ApiProperty({ type: Date })
+  timeToPublish?: Date;
+
+  @ApiProperty({ type: Boolean })
+  isActive?: boolean;
 }
 
 export class UpdateDiscussionDto extends PartialType(CreateDiscussionDto) {}

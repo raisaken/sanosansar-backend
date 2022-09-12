@@ -15,6 +15,8 @@ export class DiscussionInput {
   parent?: Discussion;
   createdBy?: string;
   updatedBy?: string;
+  timeToPublish?: Date;
+  isActive?: boolean;
 }
 
 

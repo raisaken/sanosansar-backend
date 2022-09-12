@@ -22,13 +22,15 @@ export class DiscussionController {
   @ApiConsumes('multipart/form-data')
   async create(@Req() req, @Body() createDiscussionDto: CreateDiscussionDto) {
     const { user } = req?.auth;
-    const { title, description, parent, type, files } = createDiscussionDto;
+    const { title, description, parent, type, files, isActive, timeToPublish } = createDiscussionDto;
     const categoryInput: DiscussionInput = {
       type,
       title,
       description,
       createdBy: user.id,
       updatedBy: user.id,
+      isActive,
+      timeToPublish
     };
     if (files) {
       const fileLocation = await this.uploadService.uploadMedia(files);

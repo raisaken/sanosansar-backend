@@ -24,12 +24,17 @@ export class GallaryService {
   }
 
   async update(id: number, updateGallaryDto: UpdateGallaryDto) {
+    const { title, description, type, url, isActive, timeToPublish } = updateGallaryDto;
     const gallary = await this._gallaryReopository.findOneOrFail(id);
-    gallary.title = updateGallaryDto.title || gallary.title;
-    gallary.description = updateGallaryDto.description || gallary.description;
-    gallary.type = updateGallaryDto.type || gallary.type;
-    gallary.url = updateGallaryDto.url || gallary.url;
-    await this._gallaryReopository.save(gallary);
+    if (gallary) {
+      gallary.url = url || gallary.url;
+      gallary.type = type || gallary.type;
+      gallary.title = title || gallary.title;
+      gallary.isActive = isActive || gallary.isActive;
+      gallary.description = description || gallary.description;
+      gallary.timeToPublish = timeToPublish || gallary.timeToPublish;
+      await this._gallaryReopository.save(gallary);
+    }
     return gallary;
   }
 

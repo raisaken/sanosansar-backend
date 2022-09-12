@@ -64,4 +64,7 @@ export class Discussion {
     @ApiProperty()
     @Column({ name: 'updated_by', type: 'varchar', length: 300, nullable: true })
     updatedBy: string;
+
+    @Column({ name: 'time_to_publish', type: 'timestamptz', nullable: true })
+    timeToPublish?: Date;
 }
