@@ -30,7 +30,7 @@ export class GallaryService {
       gallary.url = url || gallary.url;
       gallary.type = type || gallary.type;
       gallary.title = title || gallary.title;
-      gallary.isActive = isActive || gallary.isActive;
+      gallary.isActive = isActive === false ? false: isActive || gallary.isActive;
       gallary.description = description || gallary.description;
       gallary.timeToPublish = timeToPublish || gallary.timeToPublish;
       await this._gallaryReopository.save(gallary);

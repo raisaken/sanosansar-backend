@@ -76,7 +76,7 @@ export class UserService {
       user.password = password || user.password;
       user.lastName = lastName || user.lastName;
       user.firstName = firstName || user.firstName;
-      user.dateOfBirth =  dateOfBirth || user.role;
+      user.dateOfBirth =  dateOfBirth || user.dateOfBirth;
       user.middleName = middleName === '' ? '' : middleName || user.middleName;
       await this._userRepository.save(user);
     }

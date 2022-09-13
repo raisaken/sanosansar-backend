@@ -35,7 +35,7 @@ export class DiscussionService {
     if (discussion) {
       discussion.type = type || discussion.type;
       discussion.title = title || discussion.title;
-      discussion.isActive = isActive || discussion.isActive;
+      discussion.isActive = isActive === false ? false: isActive || discussion.isActive;
       discussion.description = description || discussion.description;
       discussion.timeToPublish = timeToPublish || discussion.timeToPublish;
       // discussion.media = updateDiscussionDto.file || discussion.media;
