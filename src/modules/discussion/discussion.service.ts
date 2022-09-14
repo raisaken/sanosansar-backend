@@ -44,7 +44,9 @@ export class DiscussionService {
     return discussion;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this._discussionReopository.query(`delete from discussion where "parentId" = ${id}`);
+    await this._discussionReopository.query(`delete from discussion_like where discussion_id = ${id}`);
     return this._discussionReopository.delete(id);
   }
 
