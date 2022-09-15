@@ -47,7 +47,8 @@ export class AppModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
-        { path: 'api/v1/page', method: RequestMethod.GET },
+        { path: 'api/v1/page(.*)', method: RequestMethod.GET },
+        { path: 'api/v1/user(.*)', method: RequestMethod.GET },
         { path: 'api/v1/team', method: RequestMethod.GET },
         { path: 'api/v1/event', method: RequestMethod.GET },
         { path: 'api/v1/question', method: RequestMethod.GET },
