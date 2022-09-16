@@ -77,7 +77,7 @@ export class UserController {
     return this.userService.findOne(user.id);
   }
 
-  @Get(':id([0-9]+)') // route mapping issue ref: https://stackoverflow.com/questions/52173335/typeorm-logs-to-the-console-but-doesnt-return
+  @Get('info/:id([0-9]+)') // route mapping issue ref: https://stackoverflow.com/questions/52173335/typeorm-logs-to-the-console-but-doesnt-return
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
