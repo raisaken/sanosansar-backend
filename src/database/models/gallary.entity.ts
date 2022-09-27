@@ -6,7 +6,7 @@ export class Gallary extends BaseEntity {
     @Column({ type: 'varchar', length: 30, nullable: true })
     title?: string;
 
-    @Column({ name: 'description', type: 'varchar', length: 400, nullable: true })
+    @Column({ name: 'description', type: 'text', nullable: true })
     description?: string;
 
     @Column({ name: 'type', type: 'varchar', length: '50', default: 'image' })

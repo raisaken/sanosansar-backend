@@ -15,7 +15,7 @@ export class Discussion {
     title: string;
 
     @ApiProperty()
-    @Column({ type: 'varchar', length: 300, nullable: true })
+    @Column({ type: 'text', nullable: true })
     description: string;
 
     @ApiProperty()

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Req, NotFoundException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/services/user.service';
-import { CreateEventRegistrationDto, CreateEventRegistrationInput } from './dto/event-registration.dto';
+import { CreateEventRegistrationDto, CreateEventRegistrationInput, UpdateEventRegistrationDto } from './dto/event-registration.dto';
 import { AddScoreDto, CreateEventDto, UpdateEventDto } from './dto/event.dto';
 import { EventScoreInput } from './dto/event.input';
 import { EventService } from './event.service';
@@ -61,6 +61,22 @@ export class EventController {
         input.event = event;
       }
       return await this.eventService.eventRegistration(input);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  @Patch('registers/:id')
+  async updateEventRegistration(@Param('id') id: string, @Body() updateEventRegistrationDto: UpdateEventRegistrationDto) {
+    try {
+      const { eventId } = updateEventRegistrationDto || {};
+      if (eventId) {
+        const event = await this.eventService.findById(+eventId);
+        if (!event) {
+          throw new NotFoundException(`Invalid event id`);
+        }
+      }
+      return await this.eventService.updateEventRegistration(+id, updateEventRegistrationDto);
     } catch (err) {
       throw err;
     }

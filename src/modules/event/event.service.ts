@@ -4,7 +4,7 @@ import { EventRegistration } from 'src/database/models/event-registration.entity
 import { EventScore } from 'src/database/models/event-score.entity';
 import { Events } from 'src/database/models/event.entity';
 import { Connection, MoreThan, Repository } from 'typeorm';
-import { CreateEventRegistrationInput } from './dto/event-registration.dto';
+import { CreateEventRegistrationInput, UpdateEventRegistrationDto } from './dto/event-registration.dto';
 import { EventInput, EventScoreInput, UpdateEventInput } from './dto/event.input';
 
 @Injectable()
@@ -34,6 +34,20 @@ export class EventService {
     async eventRegistration(input: CreateEventRegistrationInput) {
         const res = await this._eventRegistrationRepository.save(input);
         return res;
+    }
+
+    async updateEventRegistration(id: number, updateEventRegistrationDto: UpdateEventRegistrationDto) {
+        const { isVerified } = updateEventRegistrationDto;
+        const eventRegistration = await this._eventRegistrationRepository.findOne({
+            where: {
+                id
+            }
+        })
+        if (eventRegistration) {
+            eventRegistration.isVerified = isVerified === false ? false : isVerified || eventRegistration.isVerified;
+            await this._eventRegistrationRepository.save(eventRegistration);
+        }
+        return eventRegistration;
     }
 
     findAll() {

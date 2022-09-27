@@ -54,5 +54,7 @@ export class CreateEventRegistrationInput {
     updatedBy?: string;
 }
 
-export class UpdateEventRegistrationDto extends PartialType(CreateEventRegistrationDto) { }
+export class UpdateEventRegistrationDto extends PartialType(CreateEventRegistrationDto) { 
+    isVerified?: boolean;
+}
 
