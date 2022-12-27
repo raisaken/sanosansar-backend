@@ -5,36 +5,36 @@ import { CreateDownloadDto, UpdateDownloadDto } from './dto/download.dto';
 
 @Injectable()
 export class DownloadService {
-  private _downloadReopository: Repository<Download>;
+  private _downloadRepository: Repository<Download>;
 
   constructor(private _connection: Connection) {
-    this._downloadReopository = this._connection.getRepository(Download);
+    this._downloadRepository = this._connection.getRepository(Download);
   }
 
   create(createDownloadDto: CreateDownloadDto) {
-    return this._downloadReopository.save(createDownloadDto);
+    return this._downloadRepository.save(createDownloadDto);
   }
 
   findAll() {
-    return this._downloadReopository.find();
+    return this._downloadRepository.find();
   }
 
   findOne(id: number) {
-    return this._downloadReopository.findOne(id);
+    return this._downloadRepository.findOne(id);
   }
 
   async update(id: number, updateDownloadDto: UpdateDownloadDto) {
-    const download = await this._downloadReopository.findOneOrFail(id);
+    const download = await this._downloadRepository.findOneOrFail(id);
     download.title = updateDownloadDto.title || download.title;
     download.description = updateDownloadDto.description || download.description;
     download.type = updateDownloadDto.type || download.type;
     download.url = updateDownloadDto.url || download.url;
     download.isPaid = updateDownloadDto.isPaid || download.isPaid;
-    await this._downloadReopository.save(download);
+    await this._downloadRepository.save(download);
     return download;
   }
 
   remove(id: number) {
-    return this._downloadReopository.delete(id);
+    return this._downloadRepository.delete(id);
   }
 }

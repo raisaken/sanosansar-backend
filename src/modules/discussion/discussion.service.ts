@@ -8,30 +8,30 @@ import { DiscussionInput, DiscussionLikeInput } from './dto/discussion.input';
 
 @Injectable()
 export class DiscussionService {
-  private _discussionReopository: Repository<Discussion>;
-  private _discussionLikeReopository: Repository<DiscussionLike>;
+  private _discussionRepository: Repository<Discussion>;
+  private _discussionLikeRepository: Repository<DiscussionLike>;
 
   constructor(private _connection: Connection, private readonly userService: UserService) {
-    this._discussionReopository = this._connection.getRepository(Discussion);
-    this._discussionLikeReopository = this._connection.getRepository(DiscussionLike);
+    this._discussionRepository = this._connection.getRepository(Discussion);
+    this._discussionLikeRepository = this._connection.getRepository(DiscussionLike);
   }
 
   async create(createDiscussionDto: DiscussionInput) {
-    const discussion = await this._discussionReopository.save(createDiscussionDto);
+    const discussion = await this._discussionRepository.save(createDiscussionDto);
     return discussion;
   }
 
   findAll() {
-    return this._discussionReopository.find({ relations: ['children', 'likes', 'likes.user'], order: { id: 'DESC' } });
+    return this._discussionRepository.find({ relations: ['children', 'likes', 'likes.user'], order: { id: 'DESC' } });
   }
 
   findOne(id: number) {
-    return this._discussionReopository.findOne(id, { relations: ['children', 'likes', 'likes.user'] });
+    return this._discussionRepository.findOne(id, { relations: ['children', 'likes', 'likes.user'] });
   }
 
   async update(id: number, updateDiscussionDto: UpdateDiscussionDto) {
     const { title, description, type, isActive, timeToPublish } = updateDiscussionDto;
-    const discussion = await this._discussionReopository.findOneOrFail(id);
+    const discussion = await this._discussionRepository.findOneOrFail(id);
     if (discussion) {
       discussion.type = type || discussion.type;
       discussion.title = title || discussion.title;
@@ -39,19 +39,19 @@ export class DiscussionService {
       discussion.description = description || discussion.description;
       discussion.timeToPublish = timeToPublish || discussion.timeToPublish;
       // discussion.media = updateDiscussionDto.file || discussion.media;
-      await this._discussionReopository.save(discussion);
+      await this._discussionRepository.save(discussion);
     }
     return discussion;
   }
 
   async remove(id: number) {
-    await this._discussionReopository.query(`delete from discussion where "parentId" = ${id}`);
-    await this._discussionReopository.query(`delete from discussion_like where discussion_id = ${id}`);
-    return this._discussionReopository.delete(id);
+    await this._discussionRepository.query(`delete from discussion where "parentId" = ${id}`);
+    await this._discussionRepository.query(`delete from discussion_like where discussion_id = ${id}`);
+    return this._discussionRepository.delete(id);
   }
 
   async findTree() {
-    const trees = await this._discussionReopository.manager
+    const trees = await this._discussionRepository.manager
       .getTreeRepository(Discussion)
       .findTrees({
         relations: ['likes']
@@ -60,11 +60,11 @@ export class DiscussionService {
   }
 
   async removeLike(id: number) {
-    return this._discussionLikeReopository.delete(id);
+    return this._discussionLikeRepository.delete(id);
   }
 
   async like(likeInput: DiscussionLikeInput) {
-    const existingLike = await this._discussionLikeReopository.findOne({
+    const existingLike = await this._discussionLikeRepository.findOne({
       where: {
         user: likeInput.user,
         discussion: likeInput.discussion,
@@ -76,7 +76,7 @@ export class DiscussionService {
     }
     const discussion = await this.findOne(likeInput.discussion);
     const user = await this.userService.findOne(likeInput.user);
-    const like = await this._discussionLikeReopository.save({ discussion, user });
+    const like = await this._discussionLikeRepository.save({ discussion, user });
     return like;
   }
 

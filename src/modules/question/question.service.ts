@@ -1,4 +1,3 @@
-import { UpdateQuestionOptionDto } from './dto/question.dto';
 import { Injectable } from '@nestjs/common';
 import { QuestionOption } from 'src/database/models/question-option.entity';
 import { Question } from 'src/database/models/question.entity';
