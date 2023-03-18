@@ -15,6 +15,12 @@ export class CreateDownloadDto {
 
     @ApiProperty({ type: Boolean })
     isPaid?: boolean;
+
+    @ApiProperty({ type: String })
+    thumbnail?: string; 
+
+    @ApiProperty({ type: String })
+    class?: string;
 }
 
 export class UpdateDownloadDto extends PartialType(CreateDownloadDto) {}

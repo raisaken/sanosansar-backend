@@ -30,6 +30,8 @@ export class DownloadService {
     download.type = updateDownloadDto.type || download.type;
     download.url = updateDownloadDto.url || download.url;
     download.isPaid = updateDownloadDto.isPaid || download.isPaid;
+    download.class = updateDownloadDto.class || download.class;
+    download.thumbnail = updateDownloadDto.thumbnail || download.thumbnail;
     await this._downloadRepository.save(download);
     return download;
   }
