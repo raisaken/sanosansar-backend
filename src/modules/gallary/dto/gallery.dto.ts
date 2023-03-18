@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 
-export class CreateGallaryDto {
+export class CreateGalleryDto {
     @ApiProperty({ type: String })
     title?: string;
 
@@ -18,6 +18,12 @@ export class CreateGallaryDto {
 
     @ApiProperty({ type: Boolean })
     isActive?: boolean;
+
+    @ApiProperty({ type: Boolean })
+    isPaid?: boolean;
+
+    @ApiProperty({ type: String })
+    class?: string;
 }
 
-export class UpdateGallaryDto extends PartialType(CreateGallaryDto) {}
+export class UpdateGalleryDto extends PartialType(CreateGalleryDto) {}

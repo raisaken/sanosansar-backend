@@ -2,7 +2,7 @@ import { Column, Entity } from "typeorm";
 import { BaseEntity } from "./base.entity";
 
 @Entity({ name: 'gallary' })
-export class Gallary extends BaseEntity {
+export class Gallery extends BaseEntity {
     @Column({ type: 'varchar', length: 30, nullable: true })
     title?: string;
 
@@ -17,4 +17,10 @@ export class Gallary extends BaseEntity {
 
     @Column({ name: 'time_to_publish', type: 'timestamptz', nullable: true })
     timeToPublish?: Date;
+
+    @Column({ name: 'is_paid', type: 'boolean', default: false })
+    isPaid?: boolean;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    class?: string;
 }
