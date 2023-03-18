@@ -14,7 +14,7 @@ import { DiscussionModule } from './modules/discussion/discussion.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { FileModule } from './modules/file/file.module';
-import { GallaryModule } from './modules/gallary/gallary.module';
+import { GalleryModule } from './modules/gallary/gallery.module';
 import { DownloadModule } from './modules/download/download.module';
 import { TeamModule } from './modules/team/team.module';
 import { PageModule } from './modules/page/page.module';
@@ -31,7 +31,7 @@ import { PageModule } from './modules/page/page.module';
     UploadModule,
     ContactModule,
     FileModule,
-    GallaryModule,
+    GalleryModule,
     DownloadModule,
     TeamModule,
     PageModule,
