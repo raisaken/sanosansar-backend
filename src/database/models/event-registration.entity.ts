@@ -2,6 +2,7 @@ import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Events } from './event.entity';
 import { EventCompetition } from './event-competition.entity';
+import { User } from './user.entity';
 
 @Entity({ name: 'event_registration' })
 export class EventRegistration extends BaseEntity {
@@ -35,6 +36,13 @@ export class EventRegistration extends BaseEntity {
     
     @Column({ name: 'is_verified', type: 'boolean', default: false })
     isVerified?: boolean;
+
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn({ name: 'user_id' })
+    user?: User;
+
+    @Column({ name: 'user_id' })
+    userId?: number;
 
     // @OneToMany(() => EventCompetition, eventCompetition => eventCompetition.eventRegistration)
     // competitions?: EventCompetition[];

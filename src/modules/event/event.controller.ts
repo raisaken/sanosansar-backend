@@ -33,7 +33,7 @@ export class EventController {
       phoneNumber,
       guardianName,
       guardianPhoneNumber,
-      schoolName, eventId } = createEventRegistrationDto;
+      schoolName, eventId, userId } = createEventRegistrationDto;
     try {
       const input: CreateEventRegistrationInput = {
         firstName,
@@ -44,6 +44,7 @@ export class EventController {
         guardianName,
         guardianPhoneNumber,
         schoolName,
+        userId: userId ?? user?.id,
         createdBy: user?.id,
         updatedBy: user?.id,
       };

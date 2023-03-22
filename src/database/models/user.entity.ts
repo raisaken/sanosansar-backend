@@ -1,6 +1,7 @@
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { DiscussionLike } from './discussion-like.entity';
+import { EventRegistration } from './event-registration.entity';
 import { Token } from './token.entity';
 
 @Entity({ name: 'users' })
@@ -16,6 +17,8 @@ export class User extends BaseEntity {
 
     @Column({ name: 'email', type: 'varchar', length: 30, nullable: false, unique: true })
     email: string;
+    
+    // TODO: link category to user m-n
 
     @Column({ name: 'profile_picture', type: 'varchar', length: 300, nullable: true })
     profilePicture: string;
@@ -43,4 +46,7 @@ export class User extends BaseEntity {
 
     @OneToMany(() => DiscussionLike, like => like.user)
     discussionLikes?: DiscussionLike[];
+
+    @OneToMany(() => EventRegistration, eventRegistration => eventRegistration.user)
+    eventRegistration?: EventRegistration[];
 }
