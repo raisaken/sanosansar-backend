@@ -1,8 +1,9 @@
-import { Entity, Column, OneToMany, OneToOne } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { DiscussionLike } from './discussion-like.entity';
 import { EventRegistration } from './event-registration.entity';
 import { Token } from './token.entity';
+import { UserCategory } from './userCategory.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -49,4 +50,11 @@ export class User extends BaseEntity {
 
     @OneToMany(() => EventRegistration, eventRegistration => eventRegistration.user)
     eventRegistration?: EventRegistration[];
+
+    @ManyToOne(() => UserCategory, userCategory => userCategory.id)
+    @JoinColumn({ name: 'category_id' })
+    category: UserCategory;
+
+    @Column({ name: 'category_id', nullable: true })
+    categoryId?: number;
 }

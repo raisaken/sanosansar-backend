@@ -10,6 +10,7 @@ export class UserInput {
   password: string;
   gender: string;
   dateOfBirth?: string;
+  categoryId?: number;
 }
 
 export class UpdateUserInput extends PartialType(UserInput) {}

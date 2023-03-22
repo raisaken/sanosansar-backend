@@ -18,6 +18,7 @@ import { GalleryModule } from './modules/gallary/gallery.module';
 import { DownloadModule } from './modules/download/download.module';
 import { TeamModule } from './modules/team/team.module';
 import { PageModule } from './modules/page/page.module';
+import { UserCategoryModule } from './modules/user-category/user-category.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { PageModule } from './modules/page/page.module';
     DownloadModule,
     TeamModule,
     PageModule,
+    UserCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

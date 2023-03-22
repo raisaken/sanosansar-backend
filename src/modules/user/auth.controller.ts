@@ -30,6 +30,7 @@ export class AuthController {
         password,
         phoneNumber,
         dateOfBirth,
+        categoryId
       } = createUserDto;
       if (
         password.length < 8 ||
@@ -47,6 +48,7 @@ export class AuthController {
         phoneNumber: Number(phoneNumber),
         gender,
         role,
+        categoryId,
         password: await bcrypt.hash(password, 8),
       };
       if (dateOfBirth) {

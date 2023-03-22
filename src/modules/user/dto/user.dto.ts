@@ -19,6 +19,9 @@ export class CreateUserDto {
   @ApiProperty({ type: Number })
   phoneNumber?: number;
 
+  @ApiProperty({ type: Number })
+  categoryId?: number;
+
   @ApiProperty({ type: String })
   gender: string;
 
