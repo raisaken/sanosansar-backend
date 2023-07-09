@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CategoryInput } from './dto/category.input';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -13,13 +22,13 @@ export class UserCategoryController {
 
   @Post()
   async create(@Req() req, @Body() createCategoryDto: CreateCategoryDto) {
-    const { user } = req?.auth;
+    const { user } = req?.auth ?? {};
     const { name, description, parent } = createCategoryDto;
     const categoryInput: CategoryInput = {
       name,
       description,
-      createdBy: user.id,
-      updatedBy: user.id,
+      createdBy: user?.id,
+      updatedBy: user?.id,
     };
     if (parent) {
       categoryInput.parent = await this.categoryService.findOne(
