@@ -11,6 +11,7 @@ export class UserInput {
   gender: string;
   dateOfBirth?: string;
   categoryId?: number;
+  profilePicture?: string;
 }
 
 export class UpdateUserInput extends PartialType(UserInput) {}

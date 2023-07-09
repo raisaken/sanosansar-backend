@@ -24,6 +24,9 @@ export class CreateEventDto {
 
   @ApiProperty({ type: Date })
   endingDtm?: Date;
+
+  @ApiProperty({ type: String, nullable: true })
+  image?: string;
 }
 
 export class AddScoreDto {

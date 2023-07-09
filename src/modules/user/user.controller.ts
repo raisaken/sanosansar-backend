@@ -21,7 +21,7 @@ import { UserQueryDto } from './dto/user-query.dto';
 @Controller('user')
 @ApiBearerAuth('authorization')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
@@ -40,7 +40,9 @@ export class UserController {
 
       const isUserExistsWithEmail = await this.userService.findByEmail(email);
       if (isUserExistsWithEmail) {
-        throw new ConflictException(`User already exists for requested email: ${email}.`)
+        throw new ConflictException(
+          `User already exists for requested email: ${email}.`,
+        );
       }
 
       const user: UserInput = {
@@ -70,7 +72,6 @@ export class UserController {
     return this.userService.findUsersByRole(query);
   }
 
-
   @Get('detail')
   findUserDetail(@Req() req) {
     const { user } = req?.auth;
@@ -85,7 +86,6 @@ export class UserController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
-
       const { email, password } = updateUserDto;
       // if(email){
       //   const userByEmail =  await this.userService.findByEmail(email);

@@ -36,6 +36,10 @@ export class CreateUserDto {
   @ApiProperty({ type: String })
   @IsOptional()
   dateOfBirth?: string;
+
+  @ApiProperty({ type: String })
+  @IsOptional()
+  profilePicture?: string;
 }
 
 export class CreateQuestionOptionDto {
@@ -50,4 +54,6 @@ export class CreateQuestionOptionDto {
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
-export class UpdateQuestionOptionDto extends PartialType(CreateQuestionOptionDto) {}
+export class UpdateQuestionOptionDto extends PartialType(
+  CreateQuestionOptionDto,
+) {}

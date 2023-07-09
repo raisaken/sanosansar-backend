@@ -82,3 +82,13 @@ $ yarn test:cov
 ```bash
 git push heroku main
 ```
+
+## Docker Deployment
+
+```bash
+# Docker build
+1. docker build -t sb .
+
+# Run docker build
+2. docker run -p 3000:3000 -d sb
+```

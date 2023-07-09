@@ -30,7 +30,7 @@ export class AuthController {
         password,
         phoneNumber,
         dateOfBirth,
-        categoryId
+        categoryId,
       } = createUserDto;
       if (
         password.length < 8 ||

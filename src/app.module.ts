@@ -59,8 +59,9 @@ export class AppModule {
         { path: 'api/v1/gallary', method: RequestMethod.GET },
         { path: 'api/v1/discussion/tree', method: RequestMethod.GET },
         { path: 'api/v1/contact(.*)', method: RequestMethod.ALL },
-        { path: 'api/v1/auth/(.*)', method: RequestMethod.ALL }
-        )
+        { path: 'api/v1/auth/(.*)', method: RequestMethod.ALL },
+        { path: 'api/v1/user-category(.*)', method: RequestMethod.ALL },
+      )
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
