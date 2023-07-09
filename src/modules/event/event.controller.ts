@@ -1,7 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, NotFoundException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  NotFoundException,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/services/user.service';
-import { CreateEventRegistrationDto, CreateEventRegistrationInput, UpdateEventRegistrationDto } from './dto/event-registration.dto';
+import {
+  CreateEventRegistrationDto,
+  CreateEventRegistrationInput,
+  UpdateEventRegistrationDto,
+} from './dto/event-registration.dto';
 import { AddScoreDto, CreateEventDto, UpdateEventDto } from './dto/event.dto';
 import { EventScoreInput } from './dto/event.input';
 import { EventService } from './event.service';
@@ -12,7 +26,7 @@ export class EventController {
   constructor(
     private readonly eventService: EventService,
     private readonly userService: UserService,
-  ) { }
+  ) {}
 
   @Post()
   async create(@Body() createEventDto: CreateEventDto) {
@@ -25,15 +39,23 @@ export class EventController {
   }
 
   @Post('registers')
-  async eventRegistration(@Req() req, @Body() createEventRegistrationDto: CreateEventRegistrationDto) {
+  async eventRegistration(
+    @Req() req,
+    @Body() createEventRegistrationDto: CreateEventRegistrationDto,
+  ) {
     const { user } = req?.auth;
-    const { firstName, middleName,
+    const {
+      firstName,
+      middleName,
       lastName,
       email,
       phoneNumber,
       guardianName,
       guardianPhoneNumber,
-      schoolName, eventId, userId } = createEventRegistrationDto;
+      schoolName,
+      eventId,
+      userId,
+    } = createEventRegistrationDto;
     try {
       const input: CreateEventRegistrationInput = {
         firstName,
@@ -49,7 +71,10 @@ export class EventController {
         updatedBy: user?.id,
       };
 
-      const isAlreadyExists = await this.eventService.findRegistrationDetails(eventId, user.id);
+      const isAlreadyExists = await this.eventService.findRegistrationDetails(
+        eventId,
+        user.id,
+      );
       if (isAlreadyExists) {
         return isAlreadyExists;
       }
@@ -68,7 +93,10 @@ export class EventController {
   }
 
   @Patch('registers/:id')
-  async updateEventRegistration(@Param('id') id: string, @Body() updateEventRegistrationDto: UpdateEventRegistrationDto) {
+  async updateEventRegistration(
+    @Param('id') id: string,
+    @Body() updateEventRegistrationDto: UpdateEventRegistrationDto,
+  ) {
     try {
       const { eventId } = updateEventRegistrationDto || {};
       if (eventId) {
@@ -77,7 +105,10 @@ export class EventController {
           throw new NotFoundException(`Invalid event id`);
         }
       }
-      return await this.eventService.updateEventRegistration(+id, updateEventRegistrationDto);
+      return await this.eventService.updateEventRegistration(
+        +id,
+        updateEventRegistrationDto,
+      );
     } catch (err) {
       throw err;
     }
@@ -106,7 +137,10 @@ export class EventController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateEventDto: UpdateEventDto,
+  ) {
     try {
       return this.eventService.update(+id, updateEventDto);
     } catch (err) {
@@ -163,10 +197,17 @@ export class EventController {
   }
 
   @Get('/judge/score/:id/:participantid')
-  async getEventScoresOfParticipant(@Req() req, @Param('id') id: string, @Param('participantid') participantid: string) {
+  async getEventScoresOfParticipant(
+    @Req() req,
+    @Param('id') id: string,
+    @Param('participantid') participantid: string,
+  ) {
     const { user } = req?.auth;
     try {
-      const res = await this.eventService.findEventScoresOfParticipant(+id, +participantid);
+      const res = await this.eventService.findEventScoresOfParticipant(
+        +id,
+        +participantid,
+      );
       return res;
     } catch (err) {
       throw new Error(err);
