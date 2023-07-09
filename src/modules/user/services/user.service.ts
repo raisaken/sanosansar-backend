@@ -21,35 +21,35 @@ export class UserService {
     return this._userRepository.find();
   }
 
-  async findUsersByRole(query: UserQueryDto){
+  async findUsersByRole(query: UserQueryDto) {
     let { page, limit, order, role } = query;
-        page = page ? Number(page) : 1;
-        limit = limit ? Number(limit) : 10;
-        const orderBy = order ? order : 'DESC';
-        const condition: any = {
-            isActive: true
-        };
+    page = page ? Number(page) : 1;
+    limit = limit ? Number(limit) : 10;
+    const orderBy = order ? order : 'DESC';
+    const condition: any = {
+      isActive: true,
+    };
 
-        if (role) {
-          condition.role = Like(`%${role}%`);
-      }
+    if (role) {
+      condition.role = Like(`%${role}%`);
+    }
 
-      const [result, total] = await Promise.all([
-        this._userRepository.find({
-            where: condition,
-            take: limit,
-            skip: limit * (page - 1),
-            order: { createdAt: order },
-        }),
-        this._userRepository.count(condition),
+    const [result, total] = await Promise.all([
+      this._userRepository.find({
+        where: condition,
+        take: limit,
+        skip: limit * (page - 1),
+        order: { createdAt: order },
+      }),
+      this._userRepository.count(condition),
     ]);
-    
+
     return {
       result,
       total,
       page,
       perPage: limit,
-  };
+    };
   }
 
   findOne(id: number) {
@@ -59,24 +59,46 @@ export class UserService {
   findByEmail(email: string) {
     return this._userRepository.findOne({
       where: {
-        email
+        email,
       },
-      select: ['id', 'password']
+      select: ['id', 'password'],
     });
   }
-  
-  async update(id: number, updateUserDto: UpdateUserInput) {
-    const { email, firstName, middleName, lastName, password, gender, role, dateOfBirth } = updateUserDto;
-    const user = await this._userRepository.findOne(id, { select: ['id', 'role', 'email', 'middleName', 'firstName', 'lastName', 'dateOfBirth', 'password']});
 
-    if(user){
-      user.role =  role || user.role;
+  async update(id: number, updateUserDto: UpdateUserInput) {
+    const {
+      email,
+      firstName,
+      middleName,
+      lastName,
+      password,
+      gender,
+      role,
+      dateOfBirth,
+      profilePicture,
+    } = updateUserDto;
+    const user = await this._userRepository.findOne(id, {
+      select: [
+        'id',
+        'role',
+        'email',
+        'middleName',
+        'firstName',
+        'lastName',
+        'dateOfBirth',
+        'password',
+      ],
+    });
+
+    if (user) {
+      user.role = role || user.role;
       // user.email =  email || user.email;
-      user.gender =  gender || user.gender;
+      user.gender = gender || user.gender;
       user.password = password || user.password;
       user.lastName = lastName || user.lastName;
       user.firstName = firstName || user.firstName;
-      user.dateOfBirth =  dateOfBirth || user.dateOfBirth;
+      user.dateOfBirth = dateOfBirth || user.dateOfBirth;
+      user.profilePicture = profilePicture || user.profilePicture;
       user.middleName = middleName === '' ? '' : middleName || user.middleName;
       await this._userRepository.save(user);
     }
