@@ -13,8 +13,8 @@ export class updatePaidStatus1679156957113 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "download" ADD "title" character varying(520)`);
         await queryRunner.query(`ALTER TABLE "download" DROP COLUMN "description"`);
         await queryRunner.query(`ALTER TABLE "download" ADD "description" character varying(1040)`);
-//        await queryRunner.query(`ALTER TABLE "page" DROP COLUMN "name"`);
-//        await queryRunner.query(`ALTER TABLE "page" ADD "name" character varying(100) NOT NULL`);
+        await queryRunner.query(`ALTER TABLE "page" DROP COLUMN "name"`);
+        await queryRunner.query(`ALTER TABLE "page" ADD "name" character varying(100) NOT NULL`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
